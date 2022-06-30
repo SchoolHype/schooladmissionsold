@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Montserrat:wght@800&family=Poppins:wght@100;200&family=Satisfy&family=Tinos&family=Work+Sans:wght@200&display=swap');
+
+.heroSection {
+    display: flex;
+    flex-direction: row;
+    padding-left: 100px;
+}
+
+.imageWrapper{
+    width: 50%;
+    margin-top: 0.5vh;
+}
+
+.textWrapper {
+    width: 50%;
+    color: #26335D;
+    font-family: 'Montserrat';
+    font-style: normal;
+}
+
+.heroSection h1 {
+    font-weight: 800;
+    font-size: 65px;
+    line-height: 80px;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+.heroSection h4 {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+    margin-top: 10vh;
+}
+
+.heroSection h3 {
+    font-weight: 200;
+    font-size: 20px;
+    line-height: 30px;
+}
+  
+.searchButton {
+    border-color: #26335D;
+    padding: 15px;
+    color: #26335D;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+    width: 20%;
+    font-size: 18px;
+    border-radius: 10px;
+    margin-bottom: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+
+.registerButton {
+    border-color: #26335D;
+    padding: 15px;
+    background-color: #26335D;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    width: 20%;
+    font-size: 18px;
+    border-radius: 10px;
+    margin-bottom: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+
+  

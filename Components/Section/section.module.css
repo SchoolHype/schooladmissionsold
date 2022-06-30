@@ -1,0 +1,18 @@
+.parentsSection {
+    display: flex;
+    flex-direction: row;
+    padding-left: 100px;
+    background-color: #26335D;
+}
+
+.parentsImageWrapper{
+    width: 50%;
+    margin-top: 0.5vh;
+}
+
+.parentsTextWrapper {
+    width: 50%;
+    color: #ffffff;
+    font-family: 'Montserrat';
+    font-style: normal;
+}
