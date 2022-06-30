@@ -14,6 +14,16 @@ export default function Home() {
         <h3>The Future of School Search, Just Register, <br /> It’s absolutely Free!</h3>
       </HeroSection>
 
+      <Section imgSrc={"/Images/section.svg"} reverse>
+        <h1>For Parents</h1>
+        <p>The Future of School Search, Just Register, Your Search For The Perfect School Ends Here</p>
+      </Section>
+
+      <Section imgSrc={"/Images/section.svg"}>
+        <h1>For Parents</h1>
+        <p>The Future of School Search, Just Register, Your Search For The Perfect School Ends Here</p>
+      </Section>
+
       <Services />
     </>
   )
