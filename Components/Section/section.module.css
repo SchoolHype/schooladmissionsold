@@ -82,6 +82,30 @@
     margin-bottom: 10%;
   }
 
+@media screen and (max-width: 800px) {
+    .section {
+        display: flex;
+        flex-direction: column;
+        height: 700px;
+        align-items:flex-start;
+    }
+
+    .section h1 {
+        font-weight: 600;
+        font-size: 45px;
+        line-height: 50px;
+    }
+
+    .section .imageSection{
+        width: 100%;
+        margin-top: 0.5vh;
+    }
+
+    .section .textSection {
+        width: 100%;
+    }
+}
+
   
 
 

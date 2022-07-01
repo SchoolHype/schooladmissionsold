@@ -73,11 +73,17 @@
     }
 }
 
-@media screen and (min-width: 500px) and (max-width: 1100px){
-    .footer {
-        margin-top: 10vh;
-        height: 60vh;
-        padding-top: 90vh;
+@media screen and (max-width: 800px){
+    .container1 {
+        display:none;
     }
-    
+
+    .container2 {
+        display:none;
+    }
+
+    .container3 {
+        display:none;
+    }
+
 }
