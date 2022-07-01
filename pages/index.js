@@ -9,18 +9,18 @@ export default function Home() {
   return (
     <>
       <HeroSection imgSrc="/Images/hero.svg">
-        <h4><strong>Welcome to SchoolHype's School Admisssions</strong></h4>
+        <h4><strong>Welcome to SchoolHype&apos;s School Admisssions</strong></h4>
         <h1>Your Search For The Perfect School Ends Here</h1>
         <h3>The Future of School Search, Just Register, <br /> It’s absolutely Free!</h3>
       </HeroSection>
 
       <Section imgSrc={"/Images/section.svg"} reverse>
-        <h1>For Parents</h1>
+        <h2>For Parents</h2>
         <p>The Future of School Search, Just Register, Your Search For The Perfect School Ends Here</p>
       </Section>
 
       <Section imgSrc={"/Images/section.svg"}>
-        <h1>For Parents</h1>
+        <h2>For Parents</h2>
         <p>The Future of School Search, Just Register, Your Search For The Perfect School Ends Here</p>
       </Section>
 

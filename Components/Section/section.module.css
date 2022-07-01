@@ -20,7 +20,7 @@
     font-style: normal;
 }
 
-.section h1 {
+.section h2 {
     font-weight: 600;
     font-size: 45px;
     line-height: 80px;
@@ -90,7 +90,7 @@
         align-items:flex-start;
     }
 
-    .section h1 {
+    .section h2 {
         font-weight: 600;
         font-size: 45px;
         line-height: 50px;
