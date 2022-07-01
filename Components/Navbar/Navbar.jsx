@@ -23,10 +23,10 @@ const Navbar = () => {
                         <li> <Link href={'/'}>Home</Link></li>
                         <li> <Link href={'/'}>Home </Link></li>
                         <li> <Link href={'/'}>Home </Link></li>
-                        <div className={styles.navbarButton}>
-                        <button className={styles.button2}>Search</button>
-                        </div>
                     </ul>
+                    <div className={styles.navbarButton}>
+                            <button className={styles.button2}>Search</button>
+                        </div>
                     <button
                         className={
                             isOpen === false

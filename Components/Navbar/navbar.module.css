@@ -23,13 +23,15 @@
 .navbar .navLinks {
     color: #26335D;
     margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .navbar .navLinks ul {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
     gap: 25px;
     margin-right: 1.25em;
 }
@@ -38,7 +40,7 @@
     margin-left: 100px;
 }
 
-.navbar .navLinks ul .navbarButton .button2 {
+.navbar .navLinks .navbarButton .button2 {
     border-color: #26335D;
     padding: 10px;
     background-color: #26335D;
@@ -48,9 +50,7 @@
     width: 100%;
     font-size: 14px;
     border-radius: 10px;
-    margin-bottom: 10%;
-    margin-right: 5%;
-    margin-top: 10%;
+    margin-left: 500%;
 }
 
 .navbar .navLinks ul li {
