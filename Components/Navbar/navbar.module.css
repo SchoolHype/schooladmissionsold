@@ -5,7 +5,11 @@
     width: 100vw;
     display: flex;
     align-items: center;
-    padding: 0 2rem;
+}
+
+.navbar .branding {
+    margin-left: 10vh;
+    display: flex;
 }
 
 .navbar .logoText {
@@ -16,41 +20,55 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 32px;
-    margin-left: 5%;
 }
 
 
 .navbar .navLinks {
     color: #26335D;
     margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .navbar .navLinks ul {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
     gap: 25px;
-    margin-right: 1.25em;
+    margin-right: 10em;
 }
 
 .navbarButton {
-    margin-left: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-left: auto;
 }
 
-.navbar .navLinks ul .navbarButton .button2 {
+.navbar .navLinks .navbarButton .button1 {
+    border-color: #fff;
+    background-color: #fff;
+    color: #26335D;
+    text-align: center;
+    cursor: pointer;
+    width: 10em;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-right: 1vh;
+    align-self: center;
+}
+
+.navbar .navLinks .navbarButton .button2 {
     border-color: #26335D;
     padding: 10px;
     background-color: #26335D;
     color: #fff;
     text-align: center;
     cursor: pointer;
-    width: 100%;
+    width: 50%;
     font-size: 14px;
     border-radius: 10px;
-    margin-bottom: 10%;
-    margin-right: 5%;
-    margin-top: 10%;
 }
 
 .navbar .navLinks ul li {
@@ -73,6 +91,16 @@
     left: 0;
     bottom: -5px;
     transition: 0.3s ease;
+}
+
+.navbar .navLinks .navbarButton a:hover {
+    transition: 0.3s ease;
+    text-decoration: underline;
+}
+
+.navbar .navLinks .navbarButton button:hover {
+    background-color: #fff;
+    color: #26335D;
 }
 
 .navbar .navLinks ul li a:hover {

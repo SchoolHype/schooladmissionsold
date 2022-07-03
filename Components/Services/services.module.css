@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Montserrat:wght@400&family=Poppins:wght@100;200&family=Satisfy&family=Tinos&family=Work+Sans:wght@200&display=swap');
+
 .servicesSection {
     background-color: #26335D;
+    font-family: 'Montserrat';
+    font-style: normal;
 }
 
 .servicesTitle {
@@ -57,6 +61,7 @@
     text-align: left;
     color: #000;
     padding-left: 2vh;
+    padding-right: 2vh;
   }
 
   .testimage {

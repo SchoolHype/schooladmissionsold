@@ -41,8 +41,9 @@ const Footer = () => {
                     <h4>Heading</h4>
                     <div>Reach out to us: </div>
                     <div style={{marginTop:'3vh'}}>
-                        B3502, DB Woods, CHS Krishna Vatika Marg, <br/>
-                        Goregaon(East), Mumbai, 400063, Maharashtra, INDIA
+                        B101-Amrapali    
+                        Sector-3, Vaishali <br />
+                        Ghaziabad - 201010
                     </div>
                     <div style={{marginTop:'4vh'}}>© {year} School Hype</div>
                 </div>

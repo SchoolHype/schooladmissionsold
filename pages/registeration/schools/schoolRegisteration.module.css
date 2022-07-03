@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Montserrat:wght@800&family=Poppins:wght@100;200&family=Satisfy&family=Tinos&family=Work+Sans:wght@200&display=swap');
+
+.formcontainer {
+    width: 95%;
+    margin: 4vh;
+    box-shadow: 0 0 30px 0 rgb(236, 236, 236);
+    margin-bottom: 10vh;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0rem 5rem;
+    transition: all 0.2s 0.7s;
+    overflow: hidden;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    min-height: 120vh;
+    font-family: 'Montserrat';
+  }
+
+  .form.signUpForm {
+    opacity: 0;
+    z-index: 1;
+}
+
+  .formGroup {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 0 0.8rem;
+}
+
+  .title {
+    font-size: 2.2rem;
+    color: #444;
+    margin-bottom: 20px;
+}
+  
+  .formElement {
+    max-width: 380px;
+    width: 300px;
+    background-color: #f0f0f0;
+    margin: 10px 0;
+    height: 55px;
+    border-radius: 55px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0.4rem;
+    position: relative;
+  }
+
+  .formElement .i {
+    text-align: center;
+    line-height: 55px;
+    color: #acacac;
+    transition: 0.5s;
+    font-size: 1.2rem;
+    margin: 1rem;
+}
+ 
+.fullElement {
+    grid-column: 1/3 !important;
+    min-width: 620px;
+    background-color: #f0f0f0;
+    margin: 10px 0;
+    height: 55px;
+    border-radius: 55px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0.4rem;
+    position: relative;
+}
+
+.fullElement .icon {
+    text-align: center;
+    line-height: 55px;
+    color: #acacac;
+    transition: 0.5s;
+    font-size: 1.1rem;
+    margin: 1rem;
+    /* margin-right: 2rem; */
+}
+
+.radioLabel .icon {
+    text-align: center;
+    line-height: 55px;
+    color: #acacac;
+    transition: 0.5s;
+    font-size: 1.1rem;
+    margin: 1rem;
+    /* margin-right: 2rem; */
+}
+
+  .formInput{
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+  }
+
+  .fullElement .formInput::placeholder {
+    color: #aaa;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.formElement .formInput::placeholder {
+    color: #aaa;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.radioButton {
+    background: none;
+    max-width: 380px;
+    width: 300px;
+    margin: 10px 0;
+    height: 55px;
+    border-radius: 55px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0.4rem;
+    position: relative;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #aaa;
+    display: flex;
+    gap: 1rem;
+
+}
+
+.radioLabel {
+    background-color: white !important;
+    max-width: 380px;
+    width: 300px;
+    margin: 10px 0;
+    height: 55px;
+    border-radius: 55px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0.4rem;
+    position: relative;
+}
+
+.radioLabel :checked {
+    color: #000a23;
+}
+  
+  .formbutton {
+    color: white;
+    background: #26335D;
+    padding: 2vh 0;
+    cursor: pointer;
+    width: 20%;
+    text-align: center;
+    margin-top: 1vh;
+    font-family: 'Montserrat';
+    font-size: 2.5vh;
+    border-radius: 25px;
+    margin-left:1vh;
+  }
+  .formbutton:hover {
+    background: #26335D;
+  }
+  
+  @media screen and (max-width:500px) {
+    .formcontainer {
+      width: 90%;
+    }
+  
+    .form {
+      margin-top: 5vh;
+    }
+  }
