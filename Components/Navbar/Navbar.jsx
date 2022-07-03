@@ -12,8 +12,10 @@ const Navbar = () => {
     return (
         <div>
             <nav className={styles.navbar}>
-
+                <div className={styles.branding}>
+                    <Image src='/Images/logo.jpg' className={styles.logoImage} height={40} width={100} />
                     <h5 className={styles.logoText}><Link href="/">School Admissions</Link></h5>
+                </div>
 
                 <div className={styles.navLinks}>
                     <ul className={
@@ -21,12 +23,15 @@ const Navbar = () => {
                         onClick={() => setIsOpen(false)}>
                         <li> <Link href={'/'}>Home</Link></li>
                         <li> <Link href={'/'}>Home</Link></li>
-                        <li> <Link href={'/'}>Home </Link></li>
-                        <li> <Link href={'/'}>Home </Link></li>
+                        <li> <Link href={'/'}>Home</Link></li>
+                        <li> <Link href={'/registeration/schools'}>Are you a School? </Link></li>
                     </ul>
                     <div className={styles.navbarButton}>
+                        <Link href={'/registeration/parents'}>
+                            <a className={styles.button1}>Sign Up</a>
+                        </Link>
                             <button className={styles.button2}>Search</button>
-                        </div>
+                    </div>
                     <button
                         className={
                             isOpen === false
