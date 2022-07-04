@@ -36,14 +36,13 @@
     flex-direction: row;
     align-items: center;
     gap: 25px;
-    margin-right: 10em;
+    margin-right: 5em;
 }
 
 .navbarButton {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
-    margin-left: auto;
 }
 
 .navbar .navLinks .navbarButton .button1 {
@@ -52,10 +51,9 @@
     color: #26335D;
     text-align: center;
     cursor: pointer;
-    width: 10em;
+    width: 16em;
     font-size: 16px;
     border-radius: 10px;
-    margin-right: 1vh;
     align-self: center;
 }
 

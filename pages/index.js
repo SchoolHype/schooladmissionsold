@@ -11,7 +11,7 @@ export default function Home() {
       <HeroSection imgSrc="/Images/hero.svg">
         <h4><strong>Welcome to SchoolHype&apos;s School Admisssions</strong></h4>
         <h1>Your Search For The Perfect School Ends Here</h1>
-        <h3>The Future of School Search, Just Register, <br /> It&apos;s absolutely Free!</h3>
+        <h3>Just register here and get all you wanted to know about schools. It&apos;s absolutely free.</h3>
       </HeroSection>
 
       <Section imgSrc={"/Images/section.svg"} reverse>

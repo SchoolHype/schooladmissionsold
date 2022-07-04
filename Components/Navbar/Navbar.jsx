@@ -22,15 +22,16 @@ const Navbar = () => {
                         !isOpen ? styles.ul : `${styles.ul} ${styles.active}`}
                         onClick={() => setIsOpen(false)}>
                         <li> <Link href={'/'}>Home</Link></li>
-                        <li> <Link href={'/'}>Home</Link></li>
-                        <li> <Link href={'/'}>Home</Link></li>
-                        <li> <Link href={'/registeration/schools'}>Are you a School? </Link></li>
+                        <li> <Link href={'/'}>Blogs</Link></li>
+                        <li> <Link href={'/'}>Parental Guidance</Link></li>
                     </ul>
                     <div className={styles.navbarButton}>
                         <Link href={'/registeration/parents'}>
-                            <a className={styles.button1}>Sign Up</a>
+                            <a className={styles.button1}> Student Registration </a>
                         </Link>
-                            <button className={styles.button2}>Search</button>
+                        <Link href={'/registeration/schools'}>
+                            <button className={styles.button2}>School Registration</button>
+                        </Link>
                     </div>
                     <button
                         className={
