@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Montserrat:wght@400&family=Poppins:wght@100;200&family=Satisfy&family=Tinos&family=Work+Sans:wght@200&display=swap');
+
+.parentalGuidance {
+    margin: 10vh;
+    font-family: Montserrat;
+}
+
+.parentalGuidance .pgContent {
+    display: flex;
+    line-height: 5vh;
+}
+
+.parentalGuidance .pgContentRev {
+    display: flex;
+    line-height: 5vh;
+    flex-direction: row-reverse;
+}
+
+.parentalGuidance .pgContent .pgText {
+    width: 70%;
+}
+
+.parentalGuidance .pgContentRev .pgTextRev {
+    width: 70%;
+}
