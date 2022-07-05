@@ -7,6 +7,7 @@ import { GiPositionMarker } from "react-icons/gi";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IMaskInput } from 'react-imask'
+import { IoMdSchool } from 'react-icons/io';
 
 export default function Registration() {
 
@@ -74,6 +75,14 @@ export default function Registration() {
     <>
     <ToastContainer />
     <section className={styles.formcontainer}>
+        <div className={styles.formTitles}>
+            <h3> Parent Details </h3>
+            <h3> Address </h3>
+            <h3> Child Details </h3>
+        </div>
+
+        <hr />
+
         <form onSubmit={submitHandler} className={styles.form}>
 
         <h2 className={styles.title}>Register Now</h2>
@@ -82,27 +91,12 @@ export default function Registration() {
 
             <div className={styles.formElement}>
                 <FaUser className={styles.i} />
-                <input type="text" name='name' value={formData.name ? formData.name : ""} onChange={submitHandler} className={styles.formInput} placeholder="Name of Child" />
-            </div>
-
-            <div className={styles.formElement}>
-                <FaCalendar className={styles.i} />
-                <input type="text" name='dob' value={formData.dob ? formData.dob : ""} onChange={submitHandler} className={styles.formInput} placeholder="Date of Birth of Child - dd/mm/yyyy" />
-            </div>
-
-            <div className={styles.formElement}>
-                <FaSchool className={styles.i} />
-                <input type="text" name='class_year' value={formData.class_year ? formData.class_year : ""} onChange={submitHandler} className={styles.formInput} placeholder="Year of Admission" />
-            </div>
-
-            <div className={styles.formElement}>
-                <FaUser className={styles.i} />
-                <input type="text" name='father_name' value={formData.father_name ? formData.father_name : ""} onChange={submitHandler} className={styles.formInput} placeholder="Name of Father" />
+                <input type="text" name='father_name' value={formData.father_name ? formData.father_name : ""} onChange={submitHandler} className={styles.formInput} placeholder="Name" />
             </div>
 
             <div className={styles.formElement}>
                 <FaUserCheck className={styles.i} />
-                <input type="email" name='father_email_register' value={formData.father_email_register ? formData.father_email_register : ""}  onChange={submitHandler} className={styles.formInput} placeholder="Father Email" />
+                <input type="email" name='father_email_register' value={formData.father_email_register ? formData.father_email_register : ""}  onChange={submitHandler} className={styles.formInput} placeholder="Email" />
             </div>
 
             <div className={styles.formElement}>
@@ -113,7 +107,7 @@ export default function Registration() {
                     mask={"{+91} 00000-00000"}
                     radix="."
                     unmask={true}
-                    placeholder="Father Phone No"
+                    placeholder="Phone No"
                     className={styles.formInput}
                     onAccept={
                         (data, mask) => submitHandler({ target: { name: 'father_phone', value: data } })
@@ -121,7 +115,19 @@ export default function Registration() {
                 />
             </div>
 
-            <div className={styles.formElement}>
+            <div className={styles.radioLabel}>
+                <IoMdSchool className={styles.icon} />
+                <label style={{ color: "#aaa" }} className={styles.formInput} htmlFor="/"> Relationship to Child</label>
+            </div>
+
+            <div className={styles.radioButton}>
+                <input className={styles.formInput} onChange={submitHandler} type="radio" value="Father" name="relationship" /> Father
+                <input className={styles.formInput} onChange={submitHandler} type="radio" value="Mother" name="relationship" /> Mother
+                <input className={styles.formInput} onChange={submitHandler} type="radio" value="Guardian" name="relationship" /> Guardian
+            </div>
+
+
+            {/*<div className={styles.formElement}>
                 <FaUser className={styles.i} />
                 <input type="text" name='mother_name' value={formData.mother_name ? formData.mother_name : ""} onChange={submitHandler} className={styles.formInput} placeholder="Name of Mother" />
             </div>
@@ -145,13 +151,66 @@ export default function Registration() {
                         (data, mask) => submitHandler({ target: { name: 'mother_phone', value: data } })
                     }
                 />
+            </div> */}
+        </div>
+
+        <div className={styles.formGroup}>
+
+            <div className={styles.formElement}>
+            <GiPositionMarker className={styles.i} />
+            <input type="text" name='address' value={formData.address ? formData.address : ""} onChange={submitHandler} className={styles.formInput} placeholder="Address" />
+            </div>
+
+            <div className={styles.formElement}>
+            <GiPositionMarker className={styles.i} />
+            <input type="text" name='state' value={formData.state ? formData.state : ""} onChange={submitHandler} className={styles.formInput} placeholder="State" />
             </div>
 
             <div className={styles.formElement}>
                 <GiPositionMarker className={styles.i} />
-                <input type="text" name='address' value={formData.address ? formData.address : ""} onChange={submitHandler} className={styles.formInput} placeholder="Address" />
+                <input type="text" name='district' value={formData.district ? formData.district : ""} onChange={submitHandler} className={styles.formInput} placeholder="District" />
             </div>
 
+            <div className={styles.formElement}>
+                <GiPositionMarker className={styles.i} />
+                <IMaskInput
+                    name='pin'
+                    value={formData.pin ? formData.pin : ""}
+                    mask={"000000"}
+                    radix="."
+                    unmask={true}
+                    placeholder="Pin Code"
+                    className={styles.formInput}
+                    onAccept={
+                        (data, mask) => submitHandler({ target: { name: 'pin', value: data } })
+                    }
+                />
+            </div>
+
+                <div className={styles.formElement}>
+                        <GiPositionMarker className={styles.i} />
+                        <input type="text" name='city' value={formData.city ? formData.city : ""} onChange={submitHandler} className={styles.formInput} placeholder="City/Village/Town" />
+                </div>
+            </div>
+
+            <div className={styles.formGroup}>
+            <div className={styles.formElement}>
+                    <FaUser className={styles.i} />
+                    <input type="text" name='name' value={formData.name ? formData.name : ""} onChange={submitHandler} className={styles.formInput} placeholder="Name of Child" />
+                </div>
+
+                <div className={styles.formElement}>
+                    <FaCalendar className={styles.i} />
+                    <input type="text" name='dob' value={formData.dob ? formData.dob : ""} onChange={submitHandler} className={styles.formInput} placeholder="Date of Birth of Child - dd/mm/yyyy" />
+                </div>
+
+                <div className={styles.formElement}>
+                    <FaSchool className={styles.i} />
+                    <input type="text" name='class_year' value={formData.class_year ? formData.class_year : ""} onChange={submitHandler} className={styles.formInput} placeholder="Year of Admission" />
+                </div>
+            </div>
+
+        <div className={styles.formGroup}>
             <div className={styles.formElement}>
                 <FaLock className={styles.i} />
                 <input type="password" name='password_register' value={formData.password_register ? formData.password_register : ""} onChange={submitHandler} className={styles.formInput} placeholder="Password" />
@@ -161,14 +220,13 @@ export default function Registration() {
                 <FaUserShield className={styles.i} />
                 <input type="password" name='confirm_password_register' value={formData.confirm_password_register ? formData.confirm_password_register : ""} onChange={submitHandler} className={styles.formInput} placeholder="Confirm Password" />
             </div>
+        </div>
 
-</div>
         <button variant="primary" type="submit" className={styles.formbutton} onClick={register}> 
             Submit
         </button>
 
         </form>
-        <Image className={styles.image} src='/Images/section.svg' height={400} width={400}/>
     </section>
     </>
   )

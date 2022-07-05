@@ -26,10 +26,10 @@ const Navbar = () => {
                         <li> <Link href={'/parental-guidance'}>Parental Guidance</Link></li>
                     </ul>
                     <div className={styles.navbarButton}>
-                        <Link href={'/registeration/parents'}>
+                        <Link href={'/registration/parents'}>
                             <a className={styles.button1}> Student Registration </a>
                         </Link>
-                        <Link href={'/registeration/schools'}>
+                        <Link href={'/registration/schools'}>
                             <button className={styles.button2}>School Registration</button>
                         </Link>
                     </div>
