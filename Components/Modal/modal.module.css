@@ -1,0 +1,116 @@
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalContent {
+    width: 50%;
+    background-color: white;
+}
+
+.modalHeader, .modalFooter{
+    padding: 10px;
+    text-align: center;
+}
+
+.modalFooter{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 35%;
+}
+
+
+.modalTitle {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.modalBody {
+    padding: 10px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.formbutton {
+    color: white;
+    background: #26335D;
+    padding: 2vh 0;
+    cursor: pointer;
+    width: 20%;
+    text-align: center;
+    margin-top: 1vh;
+    font-family: 'Montserrat';
+    font-size: 2.5vh;
+    border-radius: 25px;
+    margin-right: 5px;
+  }
+  .formbutton:hover {
+    background: #26335D;
+  }
+  
+  .form {
+    padding: 0rem 0rem;
+    transition: all 0.2s 0.7s;
+    overflow: hidden;
+    min-height: 6vh;
+    font-family: 'Montserrat';
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+.formGroup {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 0 0.8rem;
+    margin-bottom: 2em;
+    margin-left: 5%;
+}
+
+.formElement {
+    max-width: 380px;
+    width: 300px;
+    background-color: #f0f0f0;
+    margin: 10px 0;
+    height: 55px;
+    border-radius: 55px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0.4rem;
+    position: relative;
+  }
+
+  .formElement .i {
+    text-align: center;
+    line-height: 55px;
+    color: #acacac;
+    transition: 0.5s;
+    font-size: 1.2rem;
+    margin: 1rem;
+}
+  
+  .formInput{
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+  }
+
+  .formElement .formInput::placeholder {
+    color: #aaa;
+    font-weight: 500;
+    font-size: 1.1rem;
+}

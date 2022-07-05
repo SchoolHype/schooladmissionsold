@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora&family=Montserrat:wght@800&family=Poppins:wght@100;200&family=Satisfy&family=Tinos&family=Work+Sans:wght@200&display=swap');
 
-.formcontainer {
-    width: 95%;
-    margin: 4vh;
-    box-shadow: 0 0 30px 0 rgb(236, 236, 236);
-    margin-bottom: 10vh;
-    display: flex;
-    flex-direction: row;
-  }
-  
   .form {
     padding: 0rem 5rem;
     transition: all 0.2s 0.7s;
@@ -20,16 +11,22 @@
     flex-direction: column;
   }
 
-  .form.signUpForm {
-    opacity: 0;
-    z-index: 1;
-}
-
-  .formGroup {
+  .formCard {
+    width: 95%;
+    margin: 4vh;
+    margin-bottom: 2vh;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 25px;
+  }
+  
+.formGroup {
     display: grid;
     grid-template-columns: auto auto auto;
     grid-gap: 0 0.8rem;
     margin-bottom: 2em;
+    margin-left: 5%;
 }
 
   .title {
@@ -137,30 +134,17 @@
     font-family: 'Montserrat';
     font-size: 2.5vh;
     border-radius: 25px;
-    margin-left: 50vh;
+    margin-left: 70vh;
   }
   .formbutton:hover {
     background: #26335D;
   }
 
-  .formcontainer hr {
-    margin-top: 10em;
-    height:auto;
-    margin-right: 0%;
-  }
-
-  .formcontainer .formTitles {
-    display: flex;
-    flex-direction: column;
-    margin-left: auto;
-    font-family: 'Montserrat';
-    margin-top: 12em;
-  }
-
-  .formcontainer .formTitles h3 {
+  .formCard .formTitles h2 {
     font-weight: 600;
     color: #444;
-    margin-bottom: 8em;
+    text-align: center;
+    margin-top: 4%;
   }
   
   @media screen and (max-width:500px) {
