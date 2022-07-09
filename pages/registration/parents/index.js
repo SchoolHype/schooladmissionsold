@@ -1,6 +1,12 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import styles from './parentRegisteration.module.css';
+import {useRouter} from 'next/router'
+
+
+import { auth, database } from '../../../config/firebase'
+import { createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
+import { addDoc, collection } from 'firebase/firestore'
 
 import { FaUser, FaLock, FaUserCheck, FaPhoneAlt, FaUserShield, FaCalendar, FaSchool } from "react-icons/fa";
 import { GiPositionMarker } from "react-icons/gi";
@@ -8,15 +14,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IMaskInput } from 'react-imask'
 import { IoMdSchool } from 'react-icons/io';
-import { Modal } from '../../../Components/Modal/Modal';
 
 export default function Registration() {
 
     const [formData, setFormData] = useState({});
-    const [show, setShow] = useState(false)
+    const router = useRouter();
+    
 
     const submitHandler = e => {
-        e.preventDefault();
         setFormData(state => {
             return {
                 ...state,
@@ -34,29 +39,26 @@ export default function Registration() {
             father_name_register : father_name,
             father_email_register: father_email,
             father_phone,
-            mother_name_register : mother_name,
-            mother_email_register: mother_email,
-            mother_phone,
-            dob,
-            class_year,
-            address 
+            relationship,
+            address,
+            state,
+            district,
+            pin,
+            city
         } = formData;
         const userdata = {
             father_name,
             father_email,
             father_phone,
-            mother_email,
-            mother_name,
-            mother_phone,
-            dob,
-            class_year,
-            address   
+            father_phone,
+            relationship,
+            address,
+            state,
+            district,
+            pin,
+            city  
         }
-        if (!(father_name && father_phone && mother_name && mother_phone && dob && address)) {
-            toast.error('Please enter all the details')
-            return
-        }
-        if (!verifyEmail(father_email && mother_email)) {
+        if (!verifyEmail(father_email)) {
             toast.error("Enter a valid email")
             return
         }
@@ -64,13 +66,34 @@ export default function Registration() {
             toast.error("Passwords don\'t match")
             return
         }
-        console.log(formData);
-        setFormData("")
-    }
-
-    const modalHandler = e => {
-        e.preventDefault();
-        setShow(true);
+        
+        toast.promise(
+            createUserWithEmailAndPassword(auth, father_email, password)
+                .then(user => {
+                    updateProfile(user.user, {
+                        displayName: father_name
+                    })
+                    addDoc(collection(database, 'register'), userdata)
+                        .catch(err => 'Error while adding details')
+                })
+                .catch(error => {
+                    if (error.code === 'auth/weak-password') {
+                        toast.error("Please enter a stronger password atleast 6 characters long")
+                        throw 'weak-password'
+                    } else if (error.code === 'auth/email-already-in-use') {
+                        toast.info("Email is already registered. Please Sign In")
+                        throw 'email-exists'
+                    }
+                    console.log(error)
+                }),
+            {
+                pending: 'Creating user',
+                error: 'Error while creating user!',
+                success: 'User created successfully'
+            }
+        ).then(() => {
+            router.back()
+        })
     }
 
     const verifyEmail = email => {
@@ -84,7 +107,7 @@ export default function Registration() {
     <ToastContainer />
     <h2 className={styles.title}>Register Now</h2>
 
-        <form onSubmit={submitHandler} className={styles.form}>
+        <form action="" className={styles.form}>
 
         <div className={styles.formCard}> 
             <div className={styles.formTitles}>
@@ -189,13 +212,9 @@ export default function Registration() {
             </div>
         </div>
 
-        <button variant="primary" type="submit" className={styles.formbutton} onClick={register}> 
+        <button type='submit' className={styles.formbutton} onClick={register}> 
             Submit
         </button>
-
-        <button  className={styles.formbutton} onClick={modalHandler}> yo </button>
-
-        <Modal onClose={() => setShow(false)} show={show} />
 
         </form>
 

@@ -1,13 +1,28 @@
 import React, { useState } from 'react'
 import { FaCalendar, FaSchool, FaUser } from 'react-icons/fa'
-import styles from './modal.module.css'
+import styles from './modal.module.css';
+import { database } from '../../config/firebase'
+import { addDoc, collection } from 'firebase/firestore'
 
 export const Modal = (props) => {
 
     const [formData, setFormData] = useState({});
+    const [ childList, setchildList ] = useState({});
 
     const submitHandler = e => {
         e.preventDefault();
+
+        const {
+            cname,
+            dob,
+            class_year,
+        } = formData;
+        const userdata = {
+            cname,
+            dob,
+            class_year,   
+        }
+
         setFormData(state => {
             return {
                 ...state,
@@ -15,25 +30,17 @@ export const Modal = (props) => {
             }
         })
         
-    }
+        db.collection("child").add({
+            userdata : userdata
+        }).then(() => {
+            alert("done");
+        }).catch((error) => {
+            alert(error.message);
+        });
 
-    const addChild = e => {
-        e.preventDefault();
+        setFormData({});
+    };
 
-        const {
-            name,
-            dob,
-            class_year,
-            address 
-        } = formData;
-        const userdata = {
-            name,
-            dob,
-            class_year,
-            address   
-        }
-
-    }
 
   if(!props.show) {
      return null
@@ -50,7 +57,7 @@ export const Modal = (props) => {
                 <div className={styles.formGroup}>
                     <div className={styles.formElement}>
                             <FaUser className={styles.i} />
-                            <input type="text" name='name' value={formData.name ? formData.name : ""} onChange={submitHandler} className={styles.formInput} placeholder="Name of Child" />
+                            <input type="text" name='cname' value={formData.cname ? formData.cname : ""} onChange={submitHandler} className={styles.formInput} placeholder="Name of Child" />
                         </div>
 
                         <div className={styles.formElement}>
@@ -67,7 +74,7 @@ export const Modal = (props) => {
             </div>
             <div className={styles.modalFooter}>
                 <button onClick={props.onClose} className={styles.formbutton}>Close</button>
-                <button onClick={props.addChild} className={styles.formbutton}>add </button>
+                <button onClick={submitHandler} className={styles.formbutton}>add </button>
             </div>
         </div>
     </div>

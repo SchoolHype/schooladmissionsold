@@ -6,11 +6,16 @@ import Link from 'next/link'
 import { FaLock, FaUserShield } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { IMaskInput } from 'react-imask'
 
-export default function Registration() {
+import { auth } from '../../../config/firebase'
+import { signInWithEmailAndPassword, onAuthStateChanged, getAuth  } from 'firebase/auth'
+
+import { useRouter } from 'next/router'
+
+export default function Login() {
 
     const [formData, setFormData] = useState({});
+    const router = useRouter();
 
     const submitHandler = e => {
         setFormData(state => {
@@ -25,8 +30,28 @@ export default function Registration() {
     const login = e => {
         e.preventDefault();
         const { email_login: email, password_login: password } = formData;
+        toast.promise(
+            signInWithEmailAndPassword(auth, email, password),
+            {
+                pending: 'Logging In',
+                error: 'Error while signing in',
+                success: 'Logged In'
+            }
+        ).then(() => router.push('/search'))
         setFormData({})
     }
+        
+        const auth = getAuth();
+
+        onAuthStateChanged(auth, (user) => {
+        if(user) {
+            router.push('/search')
+        } else {
+           window.location.href = "login.js";
+        }
+        
+        });
+        
 
 
 
@@ -45,7 +70,7 @@ export default function Registration() {
 
                     <div className={styles.fullElement}>
                         <FaLock className={styles.icon} />
-                        <input className={styles.formInput} type="text" name='password_login' value={formData.password_login ? formData.password_login : ""} onChange={submitHandler} placeholder="Enter your Password" />
+                        <input className={styles.formInput} type="password" name='password_login' value={formData.password_login ? formData.password_login : ""} onChange={submitHandler} placeholder="Enter your Password" />
                     </div>
                 </div>
 

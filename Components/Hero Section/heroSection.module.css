@@ -77,12 +77,12 @@
     
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 500px) {
 
     .heroSection {
         display: flex;
         flex-direction: column-reverse;
-        padding-left: 100px;
+        width:100%;
     }
 
     

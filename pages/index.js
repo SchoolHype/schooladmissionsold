@@ -1,13 +1,27 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import HeroSection from '../Components/Hero Section/HeroSection'
 import Section from '../Components/Section/Section'
 import Services from '../Components/Services/Services'
-import styles from '../styles/Home.module.css'
+
+
+import Head from "next/head";
 
 export default function Home() {
   return (
     <>
+    <Head>
+        <title>
+          SchoolAdmissions
+        </title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
+        <meta
+          name="description"
+          content="Marketing solution for schools and preschools"
+        />
+        <link rel="icon" href="/favicon.png" />
+      </Head>
       <HeroSection imgSrc="/Images/hero.svg">
         <h4><strong>Welcome to SchoolHype&apos;s School Admisssions</strong></h4>
         <h1>Your Search For The Perfect School Ends Here</h1>
