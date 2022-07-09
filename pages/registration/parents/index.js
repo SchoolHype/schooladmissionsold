@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styles from './parentRegisteration.module.css';
 import {useRouter} from 'next/router'
 
-
 import { auth, database } from '../../../config/firebase'
 import { createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
@@ -30,6 +29,32 @@ export default function Registration() {
         })
         
     }
+
+    const handlePinChange = async (e) => {
+        setFormData(formData => {
+            return {
+                ...formData,
+                [e.target.name]: e.target.value
+            }
+        })
+        if(e.target.value.length === 6) {
+            console.log("Call API")
+            const response = await fetch(`https://api.postalpincode.in/pincode/${e.target.value}`).then(res => res.json())
+            if(response[0].Status === "Success") {
+                const {Block, State} = response[0].PostOffice[0]
+                setFormData(formData => {
+                    return {
+                        ...formData,
+                        city: Block,
+                        state: State
+                    }
+                })
+            } else {
+                toast.error("Please enter a valid pin code")
+            }
+        }
+    }
+
 
     const register = e => {
         e.preventDefault();
@@ -60,6 +85,10 @@ export default function Registration() {
         }
         if (!verifyEmail(email)) {
             toast.error("Enter a valid email")
+            return
+        }
+        if (!verifyPhone(phone)) {
+            toast.error("Enter a valid phone number")
             return
         }
         if (password !== confirm_password) {
@@ -100,6 +129,11 @@ export default function Registration() {
     const verifyEmail = email => {
         const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/g
         return regex.test(email)
+    }
+
+    const verifyPhone = phone => {
+        const regex = /^(\+\d{1,2}\s{0,1})?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
+            return regex.test(phone)
     }
 
 
@@ -185,9 +219,7 @@ export default function Registration() {
                             unmask={true}
                             placeholder="Pin Code"
                             className={styles.formInput}
-                            onAccept={
-                                (data, mask) => onChangeHandler({ target: { name: 'pin', value: data } })
-                            }
+                            onChange={handlePinChange}
                         />
                     </div>
 
@@ -214,6 +246,7 @@ export default function Registration() {
     </>
   )
 }
+
 
 
 

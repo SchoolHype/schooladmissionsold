@@ -13,7 +13,7 @@ export default function Search() {
       <button
         onClick={() => {
           logout();
-          router.push('/login/parents')
+          router.push('/')
         }}>
         Logout
       </button>

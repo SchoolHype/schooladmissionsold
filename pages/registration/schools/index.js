@@ -28,6 +28,31 @@ export default function Registration() {
         })
     }
 
+    const handlePinChange = async (e) => {
+        setFormData(formData => {
+            return {
+                ...formData,
+                [e.target.name]: e.target.value
+            }
+        })
+        if(e.target.value.length === 6) {
+            console.log("Call API")
+            const response = await fetch(`https://api.postalpincode.in/pincode/${e.target.value}`).then(res => res.json())
+            if(response[0].Status === "Success") {
+                const {Block, State} = response[0].PostOffice[0]
+                setFormData(formData => {
+                    return {
+                        ...formData,
+                        city: Block,
+                        state: State
+                    }
+                })
+            } else {
+                toast.error("Please enter a valid pin code")
+            }
+        }
+    }
+
     const register = e => {
         e.preventDefault();
         const {
@@ -72,7 +97,6 @@ export default function Registration() {
                     updateProfile(user.user, {
                         displayName: institute
                     })
-                    console.log(schooldata)
                     console.log(schooldata)
                     addDoc(collection(database, 'schools'), schooldata)
                         .catch(err => 'Error while adding details')
@@ -196,9 +220,7 @@ export default function Registration() {
                 unmask={true}
                 placeholder="Pin Code"
                 className={styles.formInput}
-                onAccept={
-                    (data, mask) => onChangeHandler({ target: { name: 'pin', value: data } })
-                }
+                onChange={handlePinChange}
             />
         </div>
 

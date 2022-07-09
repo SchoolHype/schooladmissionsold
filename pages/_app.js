@@ -4,7 +4,7 @@ import { UserAuthContextProvider } from '../context/userAuthContext'
 import { useRouter } from 'next/router'
 import { ProtectedRoutes } from '../Components/ProtectedRoutes'
 
-const noAuthRequired = ['/', '/login/parents', '/registration/parents', 'registration/schools', '/parental-guidance']
+const noAuthRequired = ['/', '/login/parents', '/registration/parents', '/registration/schools', '/parental-guidance']
 
 function MyApp({ Component, pageProps }) {
 
