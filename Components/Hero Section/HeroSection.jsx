@@ -13,7 +13,7 @@ const HeroSection = ({ imgSrc, children }) => {
                         <button className={styles.registerButton}>Register</button>
                     </Link>
 
-                    <Link href='/login/parents'>
+                    <Link href='/search'>
                         <button className={styles.searchButton}>Search</button>
                     </Link>
                 </div>

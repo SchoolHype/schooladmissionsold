@@ -22,6 +22,7 @@
     min-height: 120vh;
     font-family: 'Montserrat';
     width: 70%;
+    margin-bottom: 2%;
   }
 
   .form.signUpForm {

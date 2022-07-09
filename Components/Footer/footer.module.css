@@ -3,6 +3,7 @@
     width: 80%;
     height: 35vh;
     position: relative;
+    border-top: 10px solid #26335D;
 }
 
 .footercontent {

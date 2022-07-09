@@ -11,73 +11,68 @@ import { auth } from '../../../config/firebase'
 import { signInWithEmailAndPassword, onAuthStateChanged, getAuth  } from 'firebase/auth'
 
 import { useRouter } from 'next/router'
+import { useUserAuth } from '../../../context/userAuthContext';
 
 export default function Login() {
 
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        email : "",
+        password : ""
+    });
+
+    const {user, signIn} = useUserAuth();
+
     const router = useRouter();
 
-    const submitHandler = e => {
-        setFormData(state => {
-            return {
-                ...state,
-                [e.target.name]: e.target.value
-            }
-        })
-        
-    }
-
-    const login = e => {
+    const login = async(e) => {
         e.preventDefault();
-        const { email_login: email, password_login: password } = formData;
-        toast.promise(
-            signInWithEmailAndPassword(auth, email, password),
-            {
-                pending: 'Logging In',
-                error: 'Error while signing in',
-                success: 'Logged In'
-            }
-        ).then(() => router.push('/search'))
-        setFormData({})
-    }
-        
-        const auth = getAuth();
 
-        onAuthStateChanged(auth, (user) => {
-        if(user) {
-            router.push('/search')
-        } else {
-           window.location.href = "login.js";
+        console.log(user)
+        try {
+        await signIn(formData.email, formData.password)
+        router.push('/search')
+        } catch (err) {
+        console.log(err)
         }
         
-        });
-        
-
-
-
+    }
+    
   return (
     <>
         <ToastContainer />
         <section className={styles.formcontainer}>
-            <form onSubmit={submitHandler} className={styles.form}>
+            <form onSubmit={login} className={styles.form}>
                 <h2 className={styles.title}>Login to Search</h2>
 
                 <div className={styles.formGroup}>
                     <div className={styles.fullElement}>
                         <FaUserShield className={styles.icon} />
-                        <input className={styles.formInput} type="text" name='email_login' value={formData.email_login ? formData.email_login : ""} onChange={submitHandler} placeholder="Enter your Email" />
+                        <input className={styles.formInput} type="text" name='email' value={formData.email} placeholder="Enter your Email"
+                        onChange = {(e) =>
+                            setFormData({
+                                ...formData,
+                                email: e.target.value,
+                            })
+                            }  />
                     </div>
 
                     <div className={styles.fullElement}>
                         <FaLock className={styles.icon} />
-                        <input className={styles.formInput} type="password" name='password_login' value={formData.password_login ? formData.password_login : ""} onChange={submitHandler} placeholder="Enter your Password" />
+                        <input className={styles.formInput} type="password" name='password' value={formData.password} placeholder="Enter your Password" 
+                             onChange={(e) =>
+                                setFormData({
+                                    ...formData,
+                                    password: e.target.value,
+                                })
+                                }
+                        />
                     </div>
                 </div>
 
                 <div className={styles.buttons}> Dont have an account? <span><Link href='/registration/parents'> Register Here </Link></span> </div>
 
                 <div>
-                    <button variant="primary" type="submit" className={styles.formbutton} onClick={login}> Submit </button>
+                    <button variant="primary" type="submit" className={styles.formbutton}> Submit </button>
                 </div>
 
             </form>
