@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Montserrat:wght@600&family=Poppins:wght@100;200&family=Satisfy&family=Tinos&family=Work+Sans:wght@200&display=swap');
+
+.filterSection {
+    font-family: Montserrat;
+    margin-right: 20vh;
+    margin-top: 5vh;
+}
+
+.filterSection p {
+    color: #aaa;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 10%;
+}
+
+.filterSection .filterCategory {
+    margin-bottom: 8vh;
+}
+
+.filterSection .filterCategory label{
+    color: black;
+    font-weight: 500;
+    font-size: 1.1rem;
+}

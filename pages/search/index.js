@@ -1,22 +1,15 @@
-import { useRouter } from 'next/router';
 import React from 'react'
-import { useUserAuth } from '../../context/userAuthContext'
+import { Filter } from '../../Components/Search/Filter/Filter'
+import {List} from '../../Components/Search/List/List'
 
-export default function Search() {
+import styles from './search.module.css'
 
-  const {user, logout} = useUserAuth();
-  const router = useRouter();
-
+export default function search() {
   return (
-    <>
-      <div style={{marginTop:"40px"}}>SEARCH PAGE</div>
-      <button
-        onClick={() => {
-          logout();
-          router.push('/')
-        }}>
-        Logout
-      </button>
-    </>
+    <div className={styles.searchPage}>
+      <Filter />
+      <List />
+    </div>
+
   )
 }

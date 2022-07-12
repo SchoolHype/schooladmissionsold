@@ -18,7 +18,7 @@ const HeroSection = ({ imgSrc, children }) => {
                     </Link>
                 </div>
                 <div className={styles.imageWrapper}>
-                    <Image className='hero' src={imgSrc} height={1000} width={1000} />
+                    <Image className='hero' src={imgSrc} height={400} width={600} />
                 </div>
             </section>
 

@@ -5,7 +5,7 @@ import Services from '../Components/Services/Services'
 export default function Home() {
   return (
     <>
-      <HeroSection imgSrc="/Images/hero.svg">
+      <HeroSection imgSrc="/Images/hero.jpg">
         <h4><strong>Welcome to SchoolHype&apos;s School Admisssions</strong></h4>
         <h1>Your Search For The Perfect School Ends Here</h1>
         <h3>Just register here and get all you wanted to know about schools. It&apos;s absolutely free.</h3>
