@@ -54,7 +54,6 @@ export const List = () => {
                     <GiPositionMarker className={styles.i} />
                     <p>{school.data.state}</p>
                   </div>
-                  <p>{school.data.address}</p>
                   <Link href={`/school/${school.id}`}>
                     <button className={styles.searchbutton}> Learn More </button>
                   </Link>

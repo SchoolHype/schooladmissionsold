@@ -12,7 +12,7 @@
 
 .schoolcard {
     width: 600px;
-    height: 180px;
+    height: 160px;
     background-color: white;
     margin-bottom: 5%;
     border: black solid 1px;
@@ -26,12 +26,6 @@
     margin-bottom: auto;
 }
 
-.schoolcard p {
-    text-align: left;
-    margin-left: 4%;
-    font-size: 12px;
-}
-
 .searchbutton {
     border-color: #acacac;
     padding: 8px;
@@ -42,6 +36,7 @@
     width: 20%;
     font-size: 14px;
     border-radius: 25px;
+    margin-top: 3%;
     margin-left: 3%;
 }
 
