@@ -5,6 +5,7 @@
     width: 100vw;
     display: flex;
     align-items: center;
+    border-bottom: #26335D solid 1px ;
 }
 
 .navbar .branding {

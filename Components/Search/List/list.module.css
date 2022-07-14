@@ -2,19 +2,25 @@
 
 .searchSection {
     font-family: Montserrat;
+    margin: 5%;
+}
+
+.searchSection .searchCards {
+    display: flex;
+    flex-direction: row;
 }
 
 .schoolcard {
-    width: 700px;
-    height: 200px;
+    width: 600px;
+    height: 180px;
     background-color: white;
     margin-bottom: 5%;
     border: black solid 1px;
-    margin: 10%;
+    margin: 2%;
     border-radius: 25px;
 }
 
-.schoolcard h3 {
+.schoolcard h2 {
     text-align: left;
     margin-left: 4%;
     margin-bottom: auto;
@@ -23,6 +29,7 @@
 .schoolcard p {
     text-align: left;
     margin-left: 4%;
+    font-size: 12px;
 }
 
 .searchbutton {
@@ -40,15 +47,16 @@
 
 .schoolcard .markerSection p {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 5px;
+    font-size: 12px;
 }
 
 .schoolcard .i {
     text-align: center;
     color: #acacac;
     transition: 0.5s;
-    font-size: 1.3rem;
-    margin-left: 4%;
+    font-size: 1rem;
+    margin-left: 10px;
     display: inline-block;
-    margin-left: 15px;
+    margin-left: 5%;
 }

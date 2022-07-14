@@ -19,7 +19,7 @@ const Post = ({data}) => {
 
   return (
     <div>
-      <p>Title: {data.title}</p>
+      <p>{data.state}</p>
     </div>
   );
 }
