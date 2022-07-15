@@ -43,8 +43,8 @@ export default function Children() {
               </>
             
           {
-              info.map((data) => (
-              <Info Name={data.cname} 
+              info.map((data, index) => (
+              <Info key={index} Name={data.cname} 
                     Age={data.dob}
                     Year={data.class_year}
                     />
