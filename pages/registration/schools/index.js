@@ -2,24 +2,55 @@ import Image from 'next/image';
 import { useState } from 'react';
 import styles from './schoolRegisteration.module.css';
 
-import { FaUser, FaLock, FaUserCheck, FaSchool, FaUserShield } from "react-icons/fa";
+import { auth, database } from '../../../config/firebase'
+import { createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
+import { addDoc, collection } from 'firebase/firestore'
+
+import { FaLock, FaUserCheck, FaSchool, FaUserShield } from "react-icons/fa";
 import { GiPositionMarker } from "react-icons/gi";
 import { IoMdSchool } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IMaskInput } from 'react-imask';
+import { useRouter } from 'next/router';
 
 export default function Registration() {
 
     const [formData, setFormData] = useState({});
+    const router = useRouter();
 
-    const submitHandler = async(e) => {
+    const onChangeHandler = async(e) => {
         setFormData(state => {
             return {
                 ...state,
                 [e.target.name]: e.target.value
             }
         })
+    }
+
+    const handlePinChange = async (e) => {
+        setFormData(formData => {
+            return {
+                ...formData,
+                [e.target.name]: e.target.value
+            }
+        })
+        if(e.target.value.length === 6) {
+            console.log("Call API")
+            const response = await fetch(`https://api.postalpincode.in/pincode/${e.target.value}`).then(res => res.json())
+            if(response[0].Status === "Success") {
+                const {Block, State} = response[0].PostOffice[0]
+                setFormData(formData => {
+                    return {
+                        ...formData,
+                        city: Block,
+                        state: State
+                    }
+                })
+            } else {
+                toast.error("Please enter a valid pin code")
+            }
+        }
     }
 
     const register = e => {
@@ -33,34 +64,73 @@ export default function Registration() {
             gender,
             faculty,
             state,
-            district,
             pin,
             address,
             endowment,
             level,
             city
         } = formData;
-        const userdata = {
+        const schooldata = {
             living,
             gender,
             faculty,
             institute,
-            institutionType,
             state,
-            district,
             pin,
             address,
             endowment,
             level,
             city
         }
+        if (!verifyEmail(email)) {
+            toast.error("Enter a valid email")
+            return
+        }
+        if (password !== confirm_password) {
+            toast.error("Passwords don\'t match")
+            return
+        }
+        
+        toast.promise(
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(user => {
+                    updateProfile(user.user, {
+                        displayName: institute
+                    })
+                    console.log(schooldata)
+                    addDoc(collection(database, 'schools'), schooldata)
+                        .catch(err => 'Error while adding details')
+                })
+                .catch(error => {
+                    if (error.code === 'auth/weak-password') {
+                        toast.error("Please enter a stronger password atleast 6 characters long")
+                        throw 'weak-password'
+                    } else if (error.code === 'auth/email-already-in-use') {
+                        toast.info("Email is already registered. Please Sign In")
+                        throw 'email-exists'
+                    }
+                    console.log(error)
+                }),
+            {
+                pending: 'Creating user',
+                error: 'Error while creating user!',
+                success: 'User created successfully'
+            }
+        ).then(() => {
+            router.push('/')
+        })
+    }
+
+    const verifyEmail = email => {
+        const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/g
+        return regex.test(email)
     }
 
   return (
     <>
     <ToastContainer />
     <section className={styles.formcontainer}>
-        <form onSubmit={submitHandler} className={styles.form}>
+        <form onSubmit={onChangeHandler} className={styles.form}>
 
         <h2 className={styles.title}>Register Now</h2>
 
@@ -68,22 +138,30 @@ export default function Registration() {
 
             <div className={styles.fullElement}>
                 <FaSchool className={styles.icon} />
-                <input className={styles.formInput} type="text" name='institute' value={formData.institute ? formData.institute : ""} onChange={submitHandler} placeholder="Institute Name" />
+                <input className={styles.formInput} type="text" name='institute' value={formData.institute ? formData.institute : ""} onChange={onChangeHandler} placeholder="Institute Name" />
             </div>
 
             <div className={styles.formElement}>
             <IoMdSchool className={styles.i} />
-                <select name="endowment" className={styles.formOption}>
-                    <option name="endowment" value="">Endowment</option>
-                    <option name="endowment" value="Pre-Primary">Pre-Primary</option>
-                    <option name="endowment" value="PRimary">PRimary</option>
-                    <option name="endowment" value="Middle">Middle</option>
+                <select name="endowment" className={styles.formOption} onChange={onChangeHandler}>
+                    <option className={styles.formInput} value="">Endowment</option>
+                    <option name="endowment" value="Government School">Government School</option>
+                    <option name="endowment" value="Government Aided Private School">Government Aided Private School</option>
+                    <option name="endowment" value="Private School">Private School</option>
+                    <option name="endowment" value="Internation School">Internation School</option>
+                    <option name="endowment" value="Preschool">Preschool</option>
+                    <option name="endowment" value="Home School">Home School</option>
+                    <option name="endowment" value="National Open School">National Open School</option>
+                    <option name="endowment" value="Special Needs School">Special Needs School</option>
+                    <option name="endowment" value="KV">Kendriya Vidyalaya (KV)</option>
+                    <option name="endowment" value="JNV">Jawahar Navodaya Vidyalaya (JNV)</option>
+                    <option name="endowment" value="Sainik School">Sainik School</option>
                 </select>
             </div>
 
             <div className={styles.formElement}>
             <IoMdSchool className={styles.i} />
-                <select name="level" className={styles.formOption}>
+                <select name="level" className={styles.formOption} onChange={onChangeHandler}>
                     <option className={styles.formInput} value="">Level</option>
                     <option name="level" value="Pre-Primary">Pre-Primary</option>
                     <option name="level" value="Primary">Primary</option>
@@ -99,8 +177,8 @@ export default function Registration() {
             </div>
 
             <div className={styles.radioButton}>
-                <input className={styles.formInput} onChange={submitHandler} type="radio" value="Day School" name="living" /> Day School
-                <input className={styles.formInput} onChange={submitHandler} type="radio" value="Boarding School" name="living" /> Boarding School
+                <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="Day School" name="living" /> Day School
+                <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="Boarding School" name="living" /> Boarding School
             </div>
 
             <div className={styles.radioLabel}>
@@ -109,9 +187,9 @@ export default function Registration() {
             </div>
 
             <div className={styles.radioButton}>
-                <input className={styles.formInput} onChange={submitHandler} type="radio" value="boys" name="gender" /> Boys
-                <input className={styles.formInput} onChange={submitHandler} type="radio" value="girls" name="gender" /> Girls
-                <input className={styles.formInput} onChange={submitHandler} type="radio" value="Co Ed" name="gender" /> Co-Ed
+                <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="boys" name="gender" /> Boys
+                <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="girls" name="gender" /> Girls
+                <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="Co Ed" name="gender" /> Co-Ed
             </div>
 
             
@@ -122,24 +200,14 @@ export default function Registration() {
             </div>
 
             <div className={styles.radioButton}>
-                <input className={styles.formInput} onChange={submitHandler} type="radio" value="science" name="faculty" /> Science
-                <input className={styles.formInput} onChange={submitHandler} type="radio" value="commerce" name="faculty" /> Commerce
-                <input className={styles.formInput} onChange={submitHandler} type="radio" value="humaniites" name="faculty" /> Humanities
+                <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="science" name="faculty" /> Science
+                <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="commerce" name="faculty" /> Commerce
+                <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="humaniites" name="faculty" /> Humanities
             </div>
 
         <div className={styles.formElement}>
             <GiPositionMarker className={styles.i} />
-            <input type="text" name='address' value={formData.address ? formData.address : ""} onChange={submitHandler} className={styles.formInput} placeholder="Address" />
-        </div>
-
-            <div className={styles.formElement}>
-            <GiPositionMarker className={styles.i} />
-            <input type="text" name='state' value={formData.state ? formData.state : ""} onChange={submitHandler} className={styles.formInput} placeholder="State" />
-        </div>
-
-        <div className={styles.formElement}>
-            <GiPositionMarker className={styles.i} />
-            <input type="text" name='district' value={formData.district ? formData.district : ""} onChange={submitHandler} className={styles.formInput} placeholder="District" />
+            <input type="text" name='address' value={formData.address ? formData.address : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Address" />
         </div>
 
         <div className={styles.formElement}>
@@ -152,30 +220,33 @@ export default function Registration() {
                 unmask={true}
                 placeholder="Pin Code"
                 className={styles.formInput}
-                onAccept={
-                    (data, mask) => submitHandler({ target: { name: 'pin', value: data } })
-                }
+                onChange={handlePinChange}
             />
         </div>
 
         <div className={styles.formElement}>
+            <GiPositionMarker className={styles.i} />
+            <input type="text" name='state' value={formData.state ? formData.state : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="State" />
+        </div>
+
+        <div className={styles.formElement}>
                 <GiPositionMarker className={styles.i} />
-                <input type="text" name='city' value={formData.city ? formData.city : ""} onChange={submitHandler} className={styles.formInput} placeholder="City/Village/Town" />
+                <input type="text" name='city' value={formData.city ? formData.city : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="City/Village/Town" />
         </div>
 
         <div className={styles.formElement}>
             <FaUserCheck className={styles.i} />
-            <input type="email" name='email_register' value={formData.email_register ? formData.email_register : ""} onChange={submitHandler} className={styles.formInput} placeholder="Your Email" />
+            <input type="email" name='email_register' value={formData.email_register ? formData.email_register : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Your Email" />
         </div>
 
         <div className={styles.formElement}>
             <FaLock className={styles.i} />
-            <input type="password" name='password_register' value={formData.password_register ? formData.password_register : ""} onChange={submitHandler} className={styles.formInput} placeholder="Password" />
+            <input type="password" name='password_register' value={formData.password_register ? formData.password_register : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Password" />
         </div>
 
         <div className={styles.formElement}>
             <FaUserShield className={styles.i} />
-            <input type="password" name='confirm_password_register' value={formData.confirm_password_register ? formData.confirm_password_register : ""} onChange={submitHandler} className={styles.formInput} placeholder="Confirm Password" />
+            <input type="password" name='confirm_password_register' value={formData.confirm_password_register ? formData.confirm_password_register : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Confirm Password" />
         </div>
 
         

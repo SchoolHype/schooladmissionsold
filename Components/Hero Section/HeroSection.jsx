@@ -13,12 +13,12 @@ const HeroSection = ({ imgSrc, children }) => {
                         <button className={styles.registerButton}>Register</button>
                     </Link>
 
-                    <Link href='/login/parents'>
+                    <Link href='/search'>
                         <button className={styles.searchButton}>Search</button>
                     </Link>
                 </div>
                 <div className={styles.imageWrapper}>
-                    <Image className='hero' src={imgSrc} height={1000} width={1000} />
+                    <Image className='hero' src={imgSrc} height={400} width={600} />
                 </div>
             </section>
 

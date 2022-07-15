@@ -1,8 +1,9 @@
 .footer {
     background: #fff;
-    width: 80%;
+    width: 100%;
     height: 35vh;
     position: relative;
+    border-top: 10px solid #26335D;
 }
 
 .footercontent {

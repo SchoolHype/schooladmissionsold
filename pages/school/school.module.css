@@ -1,0 +1,50 @@
+.schoolDetails .schoolMain {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    margin-left: 20%;
+    font-size: larger;
+}
+
+.schoolDetails p {
+    text-align: center;
+    margin-left: 4%;
+    font-size: 12px;
+}
+
+.schoolDetails .markerSection{
+    margin-left: 20vh;
+}
+
+.schoolDetails .markerSection p {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.schoolDetails .i {
+    text-align: center;
+    color: #acacac;
+    transition: 0.5s;
+    font-size: 1.5rem;
+    display: inline-block;
+    margin-left: 5vh;
+}
+
+.schoolDetails .schoolDetailsList {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+}
+
+.schoolDetails .schoolDetailsList p {
+    font-size: larger;
+    width: 600px;
+    height: 30px;
+    background-color: white;
+    margin-bottom: 5%;
+    border: black solid 1px;
+    margin: 2%;
+    border-radius: 25px;
+}

@@ -1,22 +1,26 @@
-import Image from 'next/image';
 import { useState } from 'react';
 import styles from './parentRegisteration.module.css';
+import {useRouter} from 'next/router'
 
-import { FaUser, FaLock, FaUserCheck, FaPhoneAlt, FaUserShield, FaCalendar, FaSchool } from "react-icons/fa";
+import { auth, database } from '../../../config/firebase'
+import { createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
+import { addDoc, collection } from 'firebase/firestore'
+
+import { FaUser, FaLock, FaUserCheck, FaPhoneAlt, FaUserShield } from "react-icons/fa";
 import { GiPositionMarker } from "react-icons/gi";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IMaskInput } from 'react-imask'
 import { IoMdSchool } from 'react-icons/io';
-import { Modal } from '../../../Components/Modal/Modal';
+import Link from 'next/link';
 
 export default function Registration() {
 
     const [formData, setFormData] = useState({});
-    const [show, setShow] = useState(false)
+    const router = useRouter();
+    
 
-    const submitHandler = e => {
-        e.preventDefault();
+    const onChangeHandler = e => {
         setFormData(state => {
             return {
                 ...state,
@@ -26,56 +30,110 @@ export default function Registration() {
         
     }
 
+    const handlePinChange = async (e) => {
+        setFormData(formData => {
+            return {
+                ...formData,
+                [e.target.name]: e.target.value
+            }
+        })
+        if(e.target.value.length === 6) {
+            console.log("Call API")
+            const response = await fetch(`https://api.postalpincode.in/pincode/${e.target.value}`).then(res => res.json())
+            if(response[0].Status === "Success") {
+                const {Block, State} = response[0].PostOffice[0]
+                setFormData(formData => {
+                    return {
+                        ...formData,
+                        city: Block,
+                        state: State
+                    }
+                })
+            } else {
+                toast.error("Please enter a valid pin code")
+            }
+        }
+    }
+
+
     const register = e => {
         e.preventDefault();
         const {
             password_register: password,
             confirm_password_register: confirm_password,
-            father_name_register : father_name,
-            father_email_register: father_email,
-            father_phone,
-            mother_name_register : mother_name,
-            mother_email_register: mother_email,
-            mother_phone,
-            dob,
-            class_year,
-            address 
+            name_register : name,
+            email_register: email,
+            phone,
+            relationship,
+            state,
+            pin,
+            city
         } = formData;
         const userdata = {
-            father_name,
-            father_email,
-            father_phone,
-            mother_email,
-            mother_name,
-            mother_phone,
-            dob,
-            class_year,
-            address   
+            name,
+            email,
+            phone,
+            phone,
+            relationship,
+            state,
+            pin,
+            city  
         }
-        if (!(father_name && father_phone && mother_name && mother_phone && dob && address)) {
-            toast.error('Please enter all the details')
+        if (!(name && phone && relationship && pin)) {
+            toast.error("Enter all details")
             return
         }
-        if (!verifyEmail(father_email && mother_email)) {
+        if (!verifyEmail(email)) {
             toast.error("Enter a valid email")
+            return
+        }
+        if (!verifyPhone(phone)) {
+            toast.error("Enter a valid phone number")
             return
         }
         if (password !== confirm_password) {
             toast.error("Passwords don\'t match")
             return
         }
-        console.log(formData);
-        setFormData("")
-    }
-
-    const modalHandler = e => {
-        e.preventDefault();
-        setShow(true);
+        
+        toast.promise(
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(user => {
+                    updateProfile(user.user, {
+                        displayName: name
+                    })
+                    console.log(userdata)
+                    addDoc(collection(database, 'users'), userdata)
+                        .catch(err => 'Error while adding details')
+                })
+                .catch(error => {
+                    if (error.code === 'auth/weak-password') {
+                        toast.error("Please enter a stronger password atleast 6 characters long")
+                        throw 'weak-password'
+                    } else if (error.code === 'auth/email-already-in-use') {
+                        toast.info("Email is already registered. Please Sign In")
+                        throw 'email-exists'
+                    }
+                    console.log(error)
+                }),
+            {
+                pending: 'Creating user',
+                error: 'Error while creating user!',
+                success: 'User created successfully'
+            }
+        ).then(() => {
+            router.push('/')
+        })
     }
 
     const verifyEmail = email => {
         const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/g
         return regex.test(email)
+    }
+
+    const verifyPhone = phone => {
+        const regex = /^(\+\d{1,2}\s{0,1})?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
+            return regex.test(phone)
     }
 
 
@@ -84,51 +142,64 @@ export default function Registration() {
     <ToastContainer />
     <h2 className={styles.title}>Register Now</h2>
 
-        <form onSubmit={submitHandler} className={styles.form}>
+        <form action="" className={styles.form}>
 
         <div className={styles.formCard}> 
             <div className={styles.formTitles}>
-                <h2>Enter Parent Details</h2>
+                <h2>Enter Contact Details</h2>
             </div>
 
             <div className={styles.formGroup}>
-                    <div className={styles.formElement}>
-                        <FaUser className={styles.i} />
-                        <input type="text" name='father_name' value={formData.father_name ? formData.father_name : ""} onChange={submitHandler} className={styles.formInput} placeholder="Name" />
-                    </div>
-
-                    <div className={styles.formElement}>
-                        <FaUserCheck className={styles.i} />
-                        <input type="email" name='father_email_register' value={formData.father_email_register ? formData.father_email_register : ""}  onChange={submitHandler} className={styles.formInput} placeholder="Email" />
-                    </div>
-
-                    <div className={styles.formElement}>
-                        <FaPhoneAlt className={styles.i} />
-                        <IMaskInput
-                            name='father_phone'
-                            value={formData.father_phone ? formData.father_phone : ""}
-                            mask={"{+91} 00000-00000"}
-                            radix="."
-                            unmask={true}
-                            placeholder="Phone No"
-                            className={styles.formInput}
-                            onAccept={
-                                (data, mask) => submitHandler({ target: { name: 'father_phone', value: data } })
-                            }
-                        />
-                    </div>
-
-                    <div className={styles.radioLabel}>
-                        <IoMdSchool className={styles.icon} />
-                        <label style={{ color: "#aaa" }} className={styles.formInput} htmlFor="/"> Relationship to Child</label>
-                    </div>
-
-                    <div className={styles.radioButton}>
-                        <input className={styles.formInput} onChange={submitHandler} type="radio" value="Father" name="relationship" /> Father
-                        <input className={styles.formInput} onChange={submitHandler} type="radio" value="Mother" name="relationship" /> Mother
-                        <input className={styles.formInput} onChange={submitHandler} type="radio" value="Guardian" name="relationship" /> Guardian
-                    </div>
+                <div className={styles.formElement}>
+                    <FaUser className={styles.i} />
+                    <input type="text" name='name_register' value={formData.name_register ? formData.name_register : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Name" />
                 </div>
+
+                <div className={styles.formElement}>
+                    <FaUserCheck className={styles.i} />
+                    <input type="email" name='email_register' value={formData.email_register ? formData.email_register : ""}  onChange={onChangeHandler} className={styles.formInput} placeholder="Email" />
+                </div>
+
+                <div className={styles.formElement}>
+                    <FaPhoneAlt className={styles.i} />
+                    <IMaskInput
+                        name='phone'
+                        value={formData.phone ? formData.phone : ""}
+                        mask={"{+91} 00000-00000"}
+                        radix="."
+                        unmask={true}
+                        placeholder="Phone No"
+                        className={styles.formInput}
+                        onAccept={
+                            (data, mask) => onChangeHandler({ target: { name: 'phone', value: data } })
+                        }
+                    />
+                </div>
+
+                <div className={styles.radioLabel}>
+                    <IoMdSchool className={styles.icon} />
+                    <label style={{ color: "#aaa" }} className={styles.formInput} htmlFor="/"> Relationship to Child</label>
+                </div>
+
+                <div className={styles.radioButton}>
+                    <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="Father" name="relationship" /> Father
+                    <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="Mother" name="relationship" /> Mother
+                    <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="Guardian" name="relationship" /> Guardian
+                </div>
+                
+                <br />
+                
+                <div className={styles.formElement}>
+                    <FaLock className={styles.i} />
+                    <input type="password" name='password_register' value={formData.password_register ? formData.password_register : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Password" />
+                </div>
+
+                <div className={styles.formElement}>
+                    <FaUserShield className={styles.i} />
+                    <input type="password" name='confirm_password_register' value={formData.confirm_password_register ? formData.confirm_password_register : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Confirm Password" />
+                </div>
+
+            </div>
         </div>
  
         <div className={styles.formCard}>
@@ -137,20 +208,6 @@ export default function Registration() {
                 </div>
 
                 <div className={styles.formGroup}>
-                    <div className={styles.formElement}>
-                    <GiPositionMarker className={styles.i} />
-                    <input type="text" name='address' value={formData.address ? formData.address : ""} onChange={submitHandler} className={styles.formInput} placeholder="Address" />
-                    </div>
-
-                    <div className={styles.formElement}>
-                    <GiPositionMarker className={styles.i} />
-                    <input type="text" name='state' value={formData.state ? formData.state : ""} onChange={submitHandler} className={styles.formInput} placeholder="State" />
-                    </div>
-
-                    <div className={styles.formElement}>
-                        <GiPositionMarker className={styles.i} />
-                        <input type="text" name='district' value={formData.district ? formData.district : ""} onChange={submitHandler} className={styles.formInput} placeholder="District" />
-                    </div>
 
                     <div className={styles.formElement}>
                         <GiPositionMarker className={styles.i} />
@@ -162,40 +219,27 @@ export default function Registration() {
                             unmask={true}
                             placeholder="Pin Code"
                             className={styles.formInput}
-                            onAccept={
-                                (data, mask) => submitHandler({ target: { name: 'pin', value: data } })
-                            }
+                            onChange={handlePinChange}
                         />
                     </div>
 
-                        <div className={styles.formElement}>
-                                <GiPositionMarker className={styles.i} />
-                                <input type="text" name='city' value={formData.city ? formData.city : ""} onChange={submitHandler} className={styles.formInput} placeholder="City/Village/Town" />
-                        </div>
+                    <div className={styles.formElement}>
+                    <GiPositionMarker className={styles.i} />
+                    <input type="text" name='state' value={formData.state ? formData.state : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="State" />
                     </div>
+
+                    <div className={styles.formElement}>
+                            <GiPositionMarker className={styles.i} />
+                            <input type="text" name='city' value={formData.city ? formData.city : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="City/Village/Town" />
+                    </div>
+                </div>
         </div>
 
-            
+        <div className={styles.loginbutton}> Already Have an account? <span><Link href='/login/parents'> Login Here </Link></span> </div>
 
-        <div className={styles.formGroup}>
-            <div className={styles.formElement}>
-                <FaLock className={styles.i} />
-                <input type="password" name='password_register' value={formData.password_register ? formData.password_register : ""} onChange={submitHandler} className={styles.formInput} placeholder="Password" />
-            </div>
-
-            <div className={styles.formElement}>
-                <FaUserShield className={styles.i} />
-                <input type="password" name='confirm_password_register' value={formData.confirm_password_register ? formData.confirm_password_register : ""} onChange={submitHandler} className={styles.formInput} placeholder="Confirm Password" />
-            </div>
-        </div>
-
-        <button variant="primary" type="submit" className={styles.formbutton} onClick={register}> 
+        <button type='submit' className={styles.formbutton} onClick={register}> 
             Submit
         </button>
-
-        <button  className={styles.formbutton} onClick={modalHandler}> yo </button>
-
-        <Modal onClose={() => setShow(false)} show={show} />
 
         </form>
 
@@ -206,19 +250,20 @@ export default function Registration() {
 
 
 
+
 //<div className={styles.formGroup}>
 //            <div className={styles.formElement}>
 //                    <FaUser className={styles.i} />
-//                    <input type="text" name='name' value={formData.name ? formData.name : ""} onChange={submitHandler} className={styles.formInput} placeholder="Name of Child" />
+//                    <input type="text" name='name' value={formData.name ? formData.name : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Name of Child" />
 //                </div>
 //
 //                <div className={styles.formElement}>
 //                    <FaCalendar className={styles.i} />
-//                    <input type="text" name='dob' value={formData.dob ? formData.dob : ""} onChange={submitHandler} className={styles.formInput} placeholder="Date of Birth of Child - dd/mm/yyyy" />
+//                    <input type="text" name='dob' value={formData.dob ? formData.dob : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Date of Birth of Child - dd/mm/yyyy" />
 //                </div>
 //
 //                <div className={styles.formElement}>
 //                    <FaSchool className={styles.i} />
-//                    <input type="text" name='class_year' value={formData.class_year ? formData.class_year : ""} onChange={submitHandler} className={styles.formInput} placeholder="Year of Admission" />
+//                    <input type="text" name='class_year' value={formData.class_year ? formData.class_year : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Year of Admission" />
 //                </div>
 //            </div>

@@ -1,14 +1,11 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import HeroSection from '../Components/Hero Section/HeroSection'
 import Section from '../Components/Section/Section'
 import Services from '../Components/Services/Services'
-import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
     <>
-      <HeroSection imgSrc="/Images/hero.svg">
+      <HeroSection imgSrc="/Images/hero.jpg">
         <h4><strong>Welcome to SchoolHype&apos;s School Admisssions</strong></h4>
         <h1>Your Search For The Perfect School Ends Here</h1>
         <h3>Just register here and get all you wanted to know about schools. It&apos;s absolutely free.</h3>
