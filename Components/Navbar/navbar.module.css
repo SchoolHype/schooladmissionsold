@@ -13,6 +13,54 @@
     display: flex;
 }
 
+.navbar .avatar {
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .navbar .avatar img {
+    border-radius: 50%;
+    object-position: center;
+  }
+  
+  .navbar .avatar .details {
+    position: absolute;
+    min-width: 150px;
+    top: 100%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transform-origin: top;
+    transition: all ease 0.3s;
+    transform: scaleY(0);
+    background-color: whitesmoke;
+    height: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+  }
+  
+  .navbar .avatar:hover .details {
+    transform: scaleY(1);
+  }
+  
+  .navbar .avatar .details p {
+    margin: 0;
+    text-align: right;
+    white-space: nowrap;
+  }
+  
+  .navbar .avatar button {
+    width: fit-content;
+    padding: 0.2rem 0.5rem;
+    margin-left: auto;
+    cursor: pointer;
+  }
+
 .navbar .logoText {
     color: #26335D;
     cursor: pointer;
@@ -44,6 +92,7 @@
     display: flex;
     flex-direction: row;
     align-items: flex-end;
+    margin-left: auto;
 }
 
 .navbar .navLinks .navbarButton .button1 {
@@ -56,18 +105,7 @@
     font-size: 16px;
     border-radius: 10px;
     align-self: center;
-}
-
-.navbar .navLinks .navbarButton .button2 {
-    border-color: #26335D;
-    padding: 10px;
-    background-color: #26335D;
-    color: #fff;
-    text-align: center;
-    cursor: pointer;
-    width: 50%;
-    font-size: 14px;
-    border-radius: 10px;
+    margin-left: 40%;
 }
 
 .navbar .navLinks ul li {
@@ -226,15 +264,39 @@
 @media screen and (max-width: 500px) {
     .navbar {
         height: 9.5vh;
-    }
-
-    .navbar .branding .logoText {
-        display: none;
+        display: flex;
     }
 
     .navbar .branding .logoImage {
-        height: 30px;
-        width: 28px;
+        display: none;
+    }
+
+    .navbar .branding {
+        margin-right: auto;
+        margin-left: 5px;
+    }
+
+    .navbar .branding .logoText{
+        font-size: small;
+        line-height: normal;
+        cursor: pointer;
+        margin-top: 0%;
+    }
+
+    .navbar .navLinks .navbarButton .button1 {
+        text-align: center;
+        cursor: pointer;
+        width: 10em;
+        font-size: small;
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        margin-left: 8vh;
+        margin-right: 0;
+        border: none;
+        background-color: white;
     }
 }
 

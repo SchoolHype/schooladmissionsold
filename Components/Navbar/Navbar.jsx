@@ -3,12 +3,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from "react";
 import styles from './navbar.module.css'
+import { useUserAuth } from '../../context/userAuthContext';
+import { useRouter } from 'next/router';
+import { FaUser } from 'react-icons/fa';
 
 const Navbar = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const openMenu = () => setIsOpen(!isOpen);
-    
+
+    const {user} = useUserAuth();
+    const {logout} = useUserAuth();
+    const router = useRouter();
+
     return (
         <div>
             <nav className={styles.navbar}>
@@ -26,12 +33,20 @@ const Navbar = () => {
                         <li> <Link href={'/parental-guidance'}>Parental Guidance</Link></li>
                     </ul>
                     <div className={styles.navbarButton}>
-                        <Link href={'/registration/parents'}>
+                        {user ? 
+                        <div className={styles.avatar}>
+                            <div className={styles.icon}>
+                            {user.photoURL ? <Image src={user.photoURL} height={30} width={30} priority/> : <FaUser />}
+                            </div>
+                            <div className={styles.details}>
+                            <p>{user.displayName ? user.displayName : user.email}</p>
+                            <button onClick={() => { logout(); router.push('/') }}>Log Out</button>
+                            </div>
+                        </div>
+                        :  <Link href={'/registration/parents'}>
                             <a className={styles.button1}> Student Registration </a>
-                        </Link>
-                        <Link href={'/registration/schools'}>
-                            <button className={styles.button2}>School Registration</button>
-                        </Link>
+                            </Link>
+                        }
                     </div>
                     <button
                         className={

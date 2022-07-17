@@ -1,6 +1,4 @@
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { useUserAuth } from '../../../context/userAuthContext'
 import Link from 'next/link'
 import { GiPositionMarker } from "react-icons/gi";
 import { FaMapPin } from "react-icons/fa";
@@ -11,10 +9,6 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import styles from './list.module.css'
 
 export const List = () => {
-
-  const {logout} = useUserAuth();
-  const router = useRouter();
-
   const [info , setInfo] = useState([]);
 
     useEffect(() => {
@@ -61,7 +55,6 @@ export const List = () => {
               )
             })}
           </div>
-        <button onClick={() => { logout(); router.push('/') }}> Logout </button>
         </div>
     );
 }

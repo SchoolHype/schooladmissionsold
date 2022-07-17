@@ -171,8 +171,8 @@
     }
 
     .formCard {
-      width: 100%;
-      margin: 4vh;
+      width: 300px;
+      margin: 1vh;
       margin-bottom: 2vh;
       display: flex;
       flex-direction: column;
@@ -180,5 +180,18 @@
       border-radius: 25px;
     }
 
-
+    .formGroup {
+      display: grid;
+      grid-template-columns: auto;
+      grid-gap: 0 0.8rem;
+      margin-bottom: 2em;
+      margin-left: 5%;
   }
+
+  .formbutton {
+    width: 60%;
+    margin-top: 3vh;
+    margin-left: 7vh;
+  }
+
+}
