@@ -30,6 +30,11 @@
     padding-top: 0px;
 }
 
+.footercontent p:hover {
+    cursor: pointer;
+    text-decoration:underline;
+}
+
 .container2 {
      width: 50%;
 }

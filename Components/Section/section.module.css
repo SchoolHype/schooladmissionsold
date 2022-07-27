@@ -43,13 +43,17 @@
     color: #2A7CC7;
     background-color: #fff;
     text-align: center;
-    cursor: pointer;
     width: 40%;
     font-size: 14px;
     margin-top: 8vh;
     margin-right: 35%;
     margin-left: 13%;
     margin-bottom: 10%;
+}
+
+.section .textSection .sectionButton:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
  
 

@@ -44,7 +44,7 @@ const Navbar = () => {
                             </div>
                         </div>
                         :  <Link href={'/registration/parents'}>
-                            <a className={styles.button1}> Student Registration </a>
+                            <a className={styles.button1}> Parent Registration </a>
                             </Link>
                         }
                     </div>

@@ -178,6 +178,13 @@
   .formbutton:hover {
     background: #26335D;
   }
+
+  .schoolformGroup {
+    display: grid;
+    grid-template-columns:auto auto;
+    grid-gap: 0 0rem;
+    margin-left: 5vh;
+}
   
   @media screen and (max-width:500px) {
     .formcontainer {

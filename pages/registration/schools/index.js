@@ -9,8 +9,6 @@ import {
     ref,
     uploadBytes,
     getDownloadURL,
-    listAll,
-    list,
   } from "firebase/storage";
 import { storage } from "../../../config/firebase";
 
@@ -29,10 +27,6 @@ export default function Registration() {
 
     const [imageUpload, setImageUpload] = useState(null);
     const [imageUrls, setImageUrls] = useState([]);
-  
-    const uploadFile = () => {
-      
-    };
 
     const onChangeHandler = async(e) => {
         setFormData(state => {
@@ -68,6 +62,24 @@ export default function Registration() {
         }
     }
 
+    const handlePhotoChange = async (e) => {
+        setFormData(formData => {
+            return {
+                ...formData,
+                [e.target.name]: e.target.value
+            }
+        });
+
+        if (imageUpload == null) return;
+        const imageRef = ref(storage, `images/${imageUpload.name}`);
+        uploadBytes(imageRef, imageUpload).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+            setImageUrls((prev) => [...prev, url]);
+            });
+        });
+
+    }
+
     const register = e => {
         e.preventDefault();
         const {
@@ -84,7 +96,8 @@ export default function Registration() {
             address,
             endowment,
             level,
-            city
+            city,
+            principal
         } = formData;
         const schooldata = {
             living,
@@ -97,16 +110,9 @@ export default function Registration() {
             address,
             endowment,
             level,
-            city
+            city,
+            principal
         }
-        
-        if (imageUpload == null) return;
-            const imageRef = ref(storage, `images/${imageUpload.name}`);
-            uploadBytes(imageRef, imageUpload).then((snapshot) => {
-                getDownloadURL(snapshot.ref).then((url) => {
-                setImageUrls((prev) => [...prev, url]);
-                });
-            });
 
         toast.promise(
             createUserWithEmailAndPassword(auth, email, password)
@@ -169,7 +175,7 @@ export default function Registration() {
             </div>
 
             {formData.type == 'School' &&
-            <div className={styles.schoolformGroup}>
+            <div>
             <div className={styles.formElement}>
             <IoMdSchool className={styles.i} />
                 <select name="endowment" className={styles.formOption} onChange={onChangeHandler}>
@@ -177,7 +183,7 @@ export default function Registration() {
                     <option name="endowment" value="Government School">Government School</option>
                     <option name="endowment" value="Government Aided Private School">Government Aided Private School</option>
                     <option name="endowment" value="Private School">Private School</option>
-                    <option name="endowment" value="Internation School">Internation School</option>
+                    <option name="endowment" value="International School">International School</option>
                     <option name="endowment" value="Preschool">Preschool</option>
                     <option name="endowment" value="Home School">Home School</option>
                     <option name="endowment" value="National Open School">National Open School</option>
@@ -280,12 +286,16 @@ export default function Registration() {
             <input type="password" name='confirm_password_register' value={formData.confirm_password_register ? formData.confirm_password_register : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Confirm Password" />
         </div>
 
-        <input
-        type="file"
-        onChange={(event) => {
-          setImageUpload(event.target.files[0]);
-        }}
-      />
+        <div className={styles.formElement}>
+        Choose Faculty
+            <input
+                type="file"
+                name="principal"
+                onChange={(event) => {
+                setImageUpload(event.target.files[0]);
+                }}
+            />
+        </div>
 
     </div>
         <button variant="primary" type="submit" onClick={register} className={styles.formbutton}>
@@ -298,3 +308,4 @@ export default function Registration() {
     </>
   )
 }
+

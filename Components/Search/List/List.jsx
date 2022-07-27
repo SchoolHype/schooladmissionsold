@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { GiPositionMarker } from "react-icons/gi";
 import { FaMapPin } from "react-icons/fa";
+import { Filter } from './../Filter/Filter'
 
 import { database } from '../../../config/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -20,18 +21,24 @@ export const List = () => {
     }, [info])
   
     const fetchData = () => {
+      //const constraintsArr = []
+//
+      //if(endowment){
+      //  constraintsArr.push(where('endowment', '==', `{clicked option}`),
+      //} else if(living) {
+      //  constraintsArr.push(where('living', '==', `{}`),
+      //}
      
       const schoolInfoRef = collection(database, 'schools');
 
-      getDocs(schoolInfoRef).then(response => {
-        console.log(response)
-        const schoolsData = response.docs.map(doc => ({
-          data: doc.data(),
-          id: doc.id,
-        }))
-        setInfo(schoolsData)
-      }).catch(error => console.log(error.message))
-    }
+        getDocs(schoolInfoRef).then(response => {
+            const schoolsData = response.docs.map(doc => ({
+            data: doc.data(),
+            id: doc.id,
+            }))
+            setInfo(schoolsData)
+        }).catch(error => console.log(error.message))
+  }
 
     return (
         <div className={styles.searchSection}>

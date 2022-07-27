@@ -12,7 +12,7 @@
 
 .schoolcard {
     width: 600px;
-    height: 160px;
+    height: 150px;
     background-color: white;
     margin-bottom: 5%;
     border: black solid 1px;
@@ -28,13 +28,13 @@
 
 .searchbutton {
     border-color: #acacac;
-    padding: 8px;
+    padding: 4px;
     color: #acacac;
     background-color: #fff;
     text-align: center;
     cursor: pointer;
-    width: 20%;
-    font-size: 14px;
+    width: 15%;
+    font-size: 12px;
     border-radius: 25px;
     margin-top: 3%;
     margin-left: 3%;
@@ -54,4 +54,27 @@
     margin-left: 10px;
     display: inline-block;
     margin-left: 5%;
+}
+
+@media screen and (max-width: 1000px) {
+
+    .searchSection .searchCards {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .schoolcard {
+        width: 350px;
+    }
+
+    .schoolcard h2 {
+        font-size:large;
+    }
+    
+    .searchbutton {
+        padding: 4px;
+        width: 30%;
+        font-size: 12px;
+    }
+
 }
