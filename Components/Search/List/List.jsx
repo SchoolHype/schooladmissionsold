@@ -4,6 +4,8 @@ import { useUserAuth } from '../../../context/userAuthContext'
 import Link from 'next/link'
 import { GiPositionMarker } from "react-icons/gi";
 import { FaMapPin } from "react-icons/fa";
+import {endowment, living, level, board} from '../Filter/Filter.jsx'
+
 
 import { database } from '../../../config/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -26,18 +28,31 @@ export const List = () => {
     }, [info])
   
     const fetchData = () => {
-     
-      const schoolInfoRef = collection(database, 'schools');
 
-      getDocs(schoolInfoRef).then(response => {
-        console.log(response)
-        const schoolsData = response.docs.map(doc => ({
-          data: doc.data(),
-          id: doc.id,
-        }))
-        setInfo(schoolsData)
-      }).catch(error => console.log(error.message))
-    }
+      const constraintsArr = []
+
+      if(endowment){
+        constraintsArr.push(where('endowment', '==', endowment))
+      } else if(living) {
+        constraintsArr.push(where('living', '==', living))
+      }else if(level) {
+        constraintsArr.push(where('level', '==', level))
+      } else if(board) {
+        constraintsArr.push(where('board', '==', board))
+      }
+
+      const collectionRef = collection(database, 'schools');
+
+      const q = query(collectionRef, ...constraintsArr)
+
+        getDocs(q).then(response => {
+            const schoolsData = response.docs.map(doc => ({
+            data: doc.data(),
+            id: doc.id,
+            }))
+            setInfo(schoolsData)
+        }).catch(error => console.log(error.message))
+  }
 
     return (
         <div className={styles.searchSection}>
