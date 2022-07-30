@@ -1,10 +1,7 @@
 import React from 'react'
 import styles from './filter.module.css'
 
-export const Filter = () => {
-
-
-export const Filter = () => {
+const Filter = () => {
     const [endowment, setEndowment] = useState("");
     const [level, setLevel] = useState("");
     const [living, setLiving] = useState("");
@@ -79,4 +76,6 @@ export const Filter = () => {
 
     </div>
   )
-} }
+}
+
+export default Filter

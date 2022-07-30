@@ -12,7 +12,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 
 import styles from './list.module.css'
 
-export const List = () => {
+const List = () => {
 
   const {logout} = useUserAuth();
   const router = useRouter();
@@ -81,5 +81,4 @@ export const List = () => {
     );
 }
 
-
-
+export default List
