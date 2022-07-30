@@ -57,14 +57,6 @@ const Filter = () => {
                 <option className={styles.filterOptions} name="level" value="Secondary">Secondary</option>
                 <option className={styles.filterOptions} name="level" value="Senior-Secondary"> Senior-Seconday</option>
             </select>
-            <select onChange={e => setLevel(e.target.value) }>
-                <option className={styles.filterOptions} name="level" value="all">All</option>
-                <option className={styles.filterOptions} name="level" value="Pre-Primary">Pre-Primary</option>
-                <option className={styles.filterOptions} name="level" value="Primary">Primary</option>
-                <option className={styles.filterOptions} name="level" value="Middle">Middle</option>
-                <option className={styles.filterOptions} name="level" value="Secondary">Secondary</option>
-                <option className={styles.filterOptions} name="level" value="Senior-Secondary"> Senior-Seconday</option>
-            </select>
         </div>
 
         <div className={styles.filterCategory}>
