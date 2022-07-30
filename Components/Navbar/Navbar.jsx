@@ -20,7 +20,7 @@ const Navbar = () => {
         <div>
             <nav className={styles.navbar}>
                 <div className={styles.branding}>
-                    <Image src='/Images/logo.jpg' className={styles.logoImage} height={40} width={100} />
+                    <Image src='/Images/logo.jpg' className={styles.logoImage} height={40} width={100} alt="user" />
                     <h5 className={styles.logoText}><Link href="/">School Admissions</Link></h5>
                 </div>
 
@@ -36,7 +36,7 @@ const Navbar = () => {
                         {user ? 
                         <div className={styles.avatar}>
                             <div className={styles.icon}>
-                            {user.photoURL ? <Image src={user.photoURL} height={30} width={30} priority/> : <FaUser />}
+                            {user.photoURL ? <Image src={user.photoURL} height={30} width={30} priority alt='user'/> : <FaUser /> }
                             </div>
                             <div className={styles.details}>
                             <p>{user.displayName ? user.displayName : user.email}</p>

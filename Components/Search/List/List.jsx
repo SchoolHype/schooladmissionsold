@@ -1,15 +1,20 @@
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
+import { useUserAuth } from '../../../context/userAuthContext'
 import Link from 'next/link'
 import { GiPositionMarker } from "react-icons/gi";
 import { FaMapPin } from "react-icons/fa";
-import { Filter } from './../Filter/Filter'
 
 import { database } from '../../../config/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
 import styles from './list.module.css'
 
-export const List = () => {
+const List = () => {
+
+  const {logout} = useUserAuth();
+  const router = useRouter();
+
   const [info , setInfo] = useState([]);
 
     useEffect(() => {
@@ -21,17 +26,24 @@ export const List = () => {
     }, [info])
   
     const fetchData = () => {
-      //const constraintsArr = []
-//
-      //if(endowment){
-      //  constraintsArr.push(where('endowment', '==', `{clicked option}`),
-      //} else if(living) {
-      //  constraintsArr.push(where('living', '==', `{}`),
-      //}
-     
-      const schoolInfoRef = collection(database, 'schools');
 
-        getDocs(schoolInfoRef).then(response => {
+      const constraintsArr = []
+
+      //if(endowment){
+      //  constraintsArr.push(where('endowment', '==', endowment))
+      //} else if(living) {
+      //  constraintsArr.push(where('living', '==', living))
+      //}else if(level) {
+      //  constraintsArr.push(where('level', '==', level))
+      //} else if(board) {
+      //  constraintsArr.push(where('board', '==', board))
+      //}
+
+      const collectionRef = collection(database, 'schools');
+
+      const q = query(collectionRef, ...constraintsArr)
+
+        getDocs(q).then(response => {
             const schoolsData = response.docs.map(doc => ({
             data: doc.data(),
             id: doc.id,
@@ -46,7 +58,7 @@ export const List = () => {
           <div className={styles.searchCards}>
             {info.map(school => {
               return (
-                <div className={styles.schoolcard}>
+                <div key={school.id} className={styles.schoolcard}>
                   <h2>{school.data.institute}</h2>
                   <div className={styles.markerSection}>
                     <FaMapPin className={styles.i} />
@@ -62,9 +74,9 @@ export const List = () => {
               )
             })}
           </div>
+        <button onClick={() => { logout(); router.push('/') }}> Logout </button>
         </div>
     );
 }
 
-
-
+export default List

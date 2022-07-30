@@ -303,7 +303,7 @@ export default function Registration() {
         </button>
 
         </form>
-        <Image src="/Images/section.svg" height={400} width={400} />
+        <Image src="/Images/section.svg" height={400} width={400}  alt="" />
     </section>
     </>
   )

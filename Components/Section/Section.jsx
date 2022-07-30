@@ -15,7 +15,7 @@ const Section= ({ children, imgSrc, reverse = false }) => {
             </div>
 
             <div className={styles.imageSection}>
-                    <Image className={styles.img} src={imgSrc} height={400} width={400} />
+                    <Image className={styles.img} src={imgSrc} height={400} width={400} alt="" />
             </div>
         </div>
     );

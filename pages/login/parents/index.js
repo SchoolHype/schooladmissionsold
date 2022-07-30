@@ -76,7 +76,7 @@ export default function Login() {
                 </div>
 
             </form>
-            <Image src="/Images/section.svg" height={500} width={300} />
+            <Image src="/Images/section.svg" height={500} width={300} alt="" />
         </section>
     </>
   )

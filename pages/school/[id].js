@@ -25,7 +25,7 @@ const Post = ({data}) => {
   return (
     <div className={styles.schoolDetails}>
       <div className={styles.schoolMain}>
-        <Image className={styles.logo} src='/Images/logo.jpg' height={80} width={100}/>
+        <Image className={styles.logo} src='/Images/logo.jpg' alt="" height={80} width={100}/>
         <h1>{data.institute}</h1>
       </div>
 
