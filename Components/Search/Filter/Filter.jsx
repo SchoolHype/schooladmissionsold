@@ -7,6 +7,7 @@ const Filter = () => {
     const [living, setLiving] = useState("");
     const [board, setBoard] = useState("");
 
+
     const HandleClick = () => {
         mode=[
             endowment,
@@ -15,7 +16,7 @@ const Filter = () => {
             board
         ]
     }
-
+    
   return (
     <div className={styles.filterSection}>
         <div className={styles.filterCategory}>
@@ -48,6 +49,14 @@ const Filter = () => {
 
         <div className={styles.filterCategory}>
             <h4>Level: </h4>
+            <select onChange={e => setLevel(e.target.value) }>
+                <option className={styles.filterOptions} name="level" value="all">All</option>
+                <option className={styles.filterOptions} name="level" value="Pre-Primary">Pre-Primary</option>
+                <option className={styles.filterOptions} name="level" value="Primary">Primary</option>
+                <option className={styles.filterOptions} name="level" value="Middle">Middle</option>
+                <option className={styles.filterOptions} name="level" value="Secondary">Secondary</option>
+                <option className={styles.filterOptions} name="level" value="Senior-Secondary"> Senior-Seconday</option>
+            </select>
             <select onChange={e => setLevel(e.target.value) }>
                 <option className={styles.filterOptions} name="level" value="all">All</option>
                 <option className={styles.filterOptions} name="level" value="Pre-Primary">Pre-Primary</option>

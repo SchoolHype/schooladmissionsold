@@ -4,6 +4,8 @@ import { useUserAuth } from '../../../context/userAuthContext'
 import Link from 'next/link'
 import { GiPositionMarker } from "react-icons/gi";
 import { FaMapPin } from "react-icons/fa";
+import {endowment, living, level, board} from '../Filter/Filter.jsx'
+
 
 import { database } from '../../../config/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -28,6 +30,7 @@ const List = () => {
     const fetchData = () => {
 
       const constraintsArr = []
+
 
       //if(endowment){
       //  constraintsArr.push(where('endowment', '==', endowment))
