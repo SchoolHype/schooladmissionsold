@@ -7,10 +7,10 @@ function HomeCarousel() {
         <Carousel autoPlay infiniteLoop interval={3000} showThumbs={false}>
 
             <div>
-            <Image src="/Images/hero.jpg" height={400} width={1000} />
+            <Image src="/Images/hero.jpg" height={400} width={1000} alt=""/>
             </div>
             <div>
-            <Image src="/Images/hero.jpg" height={400} width={1000} />
+            <Image src="/Images/hero.jpg" height={400} width={1000} alt=""/>
             </div>
 
         </Carousel>

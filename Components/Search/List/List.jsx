@@ -31,15 +31,16 @@ const List = () => {
 
       const constraintsArr = []
 
-      if(endowment){
-        constraintsArr.push(where('endowment', '==', endowment))
-      } else if(living) {
-        constraintsArr.push(where('living', '==', living))
-      }else if(level) {
-        constraintsArr.push(where('level', '==', level))
-      } else if(board) {
-        constraintsArr.push(where('board', '==', board))
-      }
+
+      //if(endowment){
+      //  constraintsArr.push(where('endowment', '==', endowment))
+      //} else if(living) {
+      //  constraintsArr.push(where('living', '==', living))
+      //}else if(level) {
+      //  constraintsArr.push(where('level', '==', level))
+      //} else if(board) {
+      //  constraintsArr.push(where('board', '==', board))
+      //}
 
       const collectionRef = collection(database, 'schools');
 
@@ -60,7 +61,7 @@ const List = () => {
           <div className={styles.searchCards}>
             {info.map(school => {
               return (
-                <div className={styles.schoolcard}>
+                <div key={school.id} className={styles.schoolcard}>
                   <h2>{school.data.institute}</h2>
                   <div className={styles.markerSection}>
                     <FaMapPin className={styles.i} />

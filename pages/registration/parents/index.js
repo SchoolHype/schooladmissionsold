@@ -122,7 +122,7 @@ export default function Registration() {
                 success: 'User created successfully'
             }
         ).then(() => {
-            router.push('/')
+            router.push('/children')
         })
     }
 

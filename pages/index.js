@@ -12,12 +12,12 @@ export default function Home() {
       </HeroSection>
 
       <Section imgSrc={"/Images/section.svg"} reverse>
-        <h2>For Parents</h2>
+        <h2>Parental Guidance</h2>
         <p>The Future of School Search, Just Register, Your Search For The Perfect School Ends Here</p>
       </Section>
 
       <Section imgSrc={"/Images/section.svg"}>
-        <h2>For Parents</h2>
+        <h2>Our Blogs</h2>
         <p>The Future of School Search, Just Register, Your Search For The Perfect School Ends Here</p>
       </Section>
 

@@ -5,6 +5,12 @@ import styles from './schoolRegisteration.module.css';
 import { auth, database } from '../../../config/firebase'
 import { createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL,
+  } from "firebase/storage";
+import { storage } from "../../../config/firebase";
 
 import { FaLock, FaUserCheck, FaSchool, FaUserShield } from "react-icons/fa";
 import { GiPositionMarker } from "react-icons/gi";
@@ -18,6 +24,9 @@ export default function Registration() {
 
     const [formData, setFormData] = useState({});
     const router = useRouter();
+
+    const [imageUpload, setImageUpload] = useState(null);
+    const [imageUrls, setImageUrls] = useState([]);
 
     const onChangeHandler = async(e) => {
         setFormData(state => {
@@ -53,6 +62,24 @@ export default function Registration() {
         }
     }
 
+    const handlePhotoChange = async (e) => {
+        setFormData(formData => {
+            return {
+                ...formData,
+                [e.target.name]: e.target.value
+            }
+        });
+
+        if (imageUpload == null) return;
+        const imageRef = ref(storage, `images/${imageUpload.name}`);
+        uploadBytes(imageRef, imageUpload).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+            setImageUrls((prev) => [...prev, url]);
+            });
+        });
+
+    }
+
     const register = e => {
         e.preventDefault();
         const {
@@ -60,6 +87,7 @@ export default function Registration() {
             password_register: password,
             confirm_password_register: confirm_password,
             institute,
+            type,
             living,
             gender,
             faculty,
@@ -68,10 +96,12 @@ export default function Registration() {
             address,
             endowment,
             level,
-            city
+            city,
+            principal
         } = formData;
         const schooldata = {
             living,
+            type,
             gender,
             faculty,
             institute,
@@ -80,17 +110,10 @@ export default function Registration() {
             address,
             endowment,
             level,
-            city
+            city,
+            principal
         }
-        if (!verifyEmail(email)) {
-            toast.error("Enter a valid email")
-            return
-        }
-        if (password !== confirm_password) {
-            toast.error("Passwords don\'t match")
-            return
-        }
-        
+
         toast.promise(
             createUserWithEmailAndPassword(auth, email, password)
                 .then(user => {
@@ -138,9 +161,21 @@ export default function Registration() {
 
             <div className={styles.fullElement}>
                 <FaSchool className={styles.icon} />
-                <input className={styles.formInput} type="text" name='institute' value={formData.institute ? formData.institute : ""} onChange={onChangeHandler} placeholder="Institute Name" />
+                <input className={styles.formInput} type="text" name='type' value={formData.institute ? formData.institute : ""} onChange={onChangeHandler} placeholder="Institute Name" />
             </div>
 
+            <div className={styles.radioLabel}>
+                <IoMdSchool className={styles.icon} />
+                <label style={{ color: "#aaa" }} className={styles.formInput} htmlFor="/"> Institute Type </label>
+            </div>
+
+            <div className={styles.radioButton}>
+                <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="Pre School" name="type" /> Pre-School
+                <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="School" name="type" /> School
+            </div>
+
+            {formData.type == 'School' &&
+            <div>
             <div className={styles.formElement}>
             <IoMdSchool className={styles.i} />
                 <select name="endowment" className={styles.formOption} onChange={onChangeHandler}>
@@ -148,7 +183,7 @@ export default function Registration() {
                     <option name="endowment" value="Government School">Government School</option>
                     <option name="endowment" value="Government Aided Private School">Government Aided Private School</option>
                     <option name="endowment" value="Private School">Private School</option>
-                    <option name="endowment" value="Internation School">Internation School</option>
+                    <option name="endowment" value="International School">International School</option>
                     <option name="endowment" value="Preschool">Preschool</option>
                     <option name="endowment" value="Home School">Home School</option>
                     <option name="endowment" value="National Open School">National Open School</option>
@@ -204,6 +239,8 @@ export default function Registration() {
                 <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="commerce" name="faculty" /> Commerce
                 <input className={styles.formInput} onChange={onChangeHandler} type="radio" value="humaniites" name="faculty" /> Humanities
             </div>
+            </div>
+            }
 
         <div className={styles.formElement}>
             <GiPositionMarker className={styles.i} />
@@ -249,16 +286,26 @@ export default function Registration() {
             <input type="password" name='confirm_password_register' value={formData.confirm_password_register ? formData.confirm_password_register : ""} onChange={onChangeHandler} className={styles.formInput} placeholder="Confirm Password" />
         </div>
 
-        
+        <div className={styles.formElement}>
+        Choose Faculty
+            <input
+                type="file"
+                name="principal"
+                onChange={(event) => {
+                setImageUpload(event.target.files[0]);
+                }}
+            />
+        </div>
 
-</div>
+    </div>
         <button variant="primary" type="submit" onClick={register} className={styles.formbutton}>
             Submit
         </button>
 
         </form>
-        <Image src="/Images/section.svg" height={400} width={400} />
+        <Image src="/Images/section.svg" height={400} width={400}  alt="" />
     </section>
     </>
   )
 }
+

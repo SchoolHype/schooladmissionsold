@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './footer.module.css';
+import Link from 'next/link'
 
 const Footer = () => {
 
@@ -11,34 +12,23 @@ const Footer = () => {
             <div className={styles.footercontent}>
                 <div className={styles.container1}>
                     <div>
-                        <h4>Heading</h4>
-                        <p>hello</p>
-                        <p>hello</p>
-                        <p>hello</p>
-                        <p>hello</p>
-                    </div>
-                </div>
-                <div className={styles.container2}>
-                    <div>
-                        <h4>Heading</h4>
-                        <p>hello</p>
-                        <p>hello</p>
-                        <p>hello</p>
-                        <p>hello</p>
-                    </div>
-                </div>
-                <div className={styles.container3}>
-                    <div>
-                        <h4>Heading</h4>
-                        <p>hello</p>
-                        <p>hello</p>
-                        <p>hello</p>
-                        <p>hello</p>
+                    <h4>Important Links </h4>
+                    <Link href={'/registration/schools'}>
+                            <p className={styles.button2}>School Registration</p>
+                    </Link>
+
+                    <Link href={'/parental-guidance'}>
+                            <p>Parental Guidance</p>
+                    </Link>
+
+                    <Link href={'/parental-guidance'}>
+                            <p>Blog</p>
+                    </Link>
                     </div>
                 </div>
 
                 <div className='container2'>
-                    <h4>Heading</h4>
+                    <h4>Contact Us</h4>
                     <div>Reach out to us: </div>
                     <div style={{marginTop:'3vh'}}>
                         B101-Amrapali    

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './filter.module.css'
 
 const Filter = () => {
@@ -7,6 +7,16 @@ const Filter = () => {
     const [living, setLiving] = useState("");
     const [board, setBoard] = useState("");
 
+
+    const HandleClick = () => {
+        mode=[
+            endowment,
+            level,
+            living,
+            board
+        ]
+    }
+    
   return (
     <div className={styles.filterSection}>
         <div className={styles.filterCategory}>
@@ -21,13 +31,7 @@ const Filter = () => {
 
         <div className={styles.filterCategory}>
             <h4>Endowment: </h4>
-            <select>
-                <option className={styles.filterOptions} name="living" value="all">All</option>
-                <option className={styles.filterOptions} name="living" value="boarding"> Boarding</option>
-                <option className={styles.filterOptions} name="living" value="day school"> Day School </option>
-            </select>
-
-            <select onChange={e => setLiving(e.target.value)}>
+            <select onChange={e => setEndowment(e.target.value)}>
                 <option className={styles.filterOptions} name="endowment" value="all">All</option>
                 <option className={styles.filterOptions}  name="endowment" value="Government School">Government School</option>
                 <option className={styles.filterOptions}  name="endowment" value="Government Aided Private School">Government Aided Private School</option>
@@ -45,10 +49,13 @@ const Filter = () => {
 
         <div className={styles.filterCategory}>
             <h4>Level: </h4>
-            <select>
-                <option className={styles.filterOptions} name="living" value="all">All</option>
-                <option className={styles.filterOptions} name="living" value="boarding"> Boarding</option>
-                <option className={styles.filterOptions} name="living" value="day school"> Day School </option>
+            <select onChange={e => setLevel(e.target.value) }>
+                <option className={styles.filterOptions} name="level" value="all">All</option>
+                <option className={styles.filterOptions} name="level" value="Pre-Primary">Pre-Primary</option>
+                <option className={styles.filterOptions} name="level" value="Primary">Primary</option>
+                <option className={styles.filterOptions} name="level" value="Middle">Middle</option>
+                <option className={styles.filterOptions} name="level" value="Secondary">Secondary</option>
+                <option className={styles.filterOptions} name="level" value="Senior-Secondary"> Senior-Seconday</option>
             </select>
             <select onChange={e => setLevel(e.target.value) }>
                 <option className={styles.filterOptions} name="level" value="all">All</option>

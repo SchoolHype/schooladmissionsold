@@ -35,7 +35,7 @@ export function UserAuthContextProvider({ children }) {
     const logout = async () => {
         setUser(null)
         await signOut(auth)
-      }
+    }
 
     return (
         <userAuthContext.Provider value={{user, signIn, signUp, logout}}>

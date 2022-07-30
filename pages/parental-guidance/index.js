@@ -22,7 +22,7 @@ export default function Registration() {
               </div>
 
               <div className={styles.pgImage}>
-                <Image src='/Images/section.svg' height={700} width={1000}/>
+                <Image src='/Images/section.svg' height={700} width={1000} alt="" />
               </div>
         </div>
 
@@ -46,7 +46,7 @@ export default function Registration() {
               </div>
 
               <div className={styles.pgImage}>
-                <Image src='/Images/section.svg' height={700} width={1000}/>
+                <Image src='/Images/section.svg' height={700} width={1000} alt="" />
               </div>
         </div>
     </div>
